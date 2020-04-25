@@ -1,0 +1,84 @@
+{
+	"$schema": "http://json-schema.org/draft-04/schema#",
+	"additionalProperties": false,
+	"title": "The schema of the progress",
+	"properties": {
+		"$schema": {
+			"description": "Pointer to the schema against which this document should be validated (Schema URL/path)",
+			"type": "string"
+		},
+		"course": {
+			"description": "Course name",
+			"type": "string"
+		},
+		"version": {
+			"description": "Version of the progress updater",
+			"type": "integer"
+		},
+		"progressName": {
+			"description": "Name of the progress that is represented by the data",
+			"type": "string"
+		},
+		"options": {
+			"description": "Options for progress feedback",
+			"type": "object",
+			"additionalProperties": false,
+			"properties": {
+				"totalSubmissionPercentage": {
+					"description": "If set checks if the total achieved points of all submissions is at least a certain percentage (0-100) of the total points that could be achieved in all submissions",
+					"type": "number",
+					"minimum": 0.0,
+					"maximum": 100.0
+				}
+			}
+		},
+		"exercises": {
+			"description": "All exercises",
+			"type": "array",
+			"items": {
+				"type": "object",
+				"additionalProperties": false,
+				"properties": {
+					"number": {
+						"description": "The number of the exercise",
+						"type": "integer",
+						"minimum": 0
+					},
+					"directory": {
+						"description": "The directory of the exercise",
+						"type": "string"
+					},
+					"submission": {
+						"description": "The submission part of the exercise",
+						"type": "object",
+						"additionalProperties": false,
+						"properties": {
+							"points": {
+								"description": "The maximum points of the exercise",
+								"type": "number",
+								"minimum": 0
+							},
+							"achievedPoints": {
+								"description": "The achieved points of the exercise",
+								"type": "number",
+								"minimum": 0
+							}
+						},
+						"required": [
+							"points"
+						]
+					}
+				},
+				"required": [
+					"number"
+				]
+			}
+		}
+	},
+	"required": [
+		"exercises",
+		"course",
+		"progressName"
+	],
+	"type": "object"
+}
