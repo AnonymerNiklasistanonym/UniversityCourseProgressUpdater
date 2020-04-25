@@ -24,11 +24,38 @@
 			"type": "object",
 			"additionalProperties": false,
 			"properties": {
-				"totalSubmissionPercentage": {
-					"description": "If set checks if the total achieved points of all submissions is at least a certain percentage (0-100) of the total points that could be achieved in all submissions",
+				"minimumPointsPercentageAllSubmissions": {
+					"description": "If set checks if the given minimum points percentage was achieved over all submissions",
 					"type": "number",
 					"minimum": 0.0,
 					"maximum": 100.0
+				},
+				"minimumPointsAllSubmissions": {
+					"description": "If set checks if the given minimum points was achieved over all submissions",
+					"type": "number",
+					"minimum": 0.0
+				},
+				"minimumSubmissions": {
+					"description": "If set checks if the given minimum submission count was achieved over all submissions",
+					"type": "number",
+					"minimum": 0.0
+				},
+				"minimumSubmissionsPercentage": {
+					"description": "If set checks if the given minimum submission count percentage was achieved over all submissions",
+					"type": "number",
+					"minimum": 0.0,
+					"maximum": 100.0
+				},
+				"minimumPointsPercentagePerSubmissions": {
+					"description": "If set checks if the given minimum points percentage was achieved for each submission",
+					"type": "number",
+					"minimum": 0.0,
+					"maximum": 100.0
+				},
+				"minimumPointsPerSubmissions": {
+					"description": "If set checks if the given minimum points was achieved for each submission",
+					"type": "number",
+					"minimum": 0.0
 				}
 			}
 		},

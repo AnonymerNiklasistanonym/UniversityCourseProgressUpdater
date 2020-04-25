@@ -16,10 +16,10 @@ Updates a `README.md` file on execution with a visualization of the latest progr
 - Add examples
 - Add tests to verify it actually is correct
 - Add more options
-  - Option for optional wished minimum points/percentage per submission
-  - Option for minimum points/percentage per submission
-  - Option for a certain number of points that need to be reached
-  - Option to display how much points should be achieved in all upcoming exercises to be successful
+  - Option for minimum percentage of submissions
+  - Option for minimum points/percentage of points per submission
+  - Option for minimum number of points that need to be reached
+  - (Default?) Option to display how much points should be achieved in all upcoming exercises to be successful
 - Add emojis for each submission when option is enabled
 - Add default `progress.json` in which some default options are enabled
 - Allow a custom path to a README

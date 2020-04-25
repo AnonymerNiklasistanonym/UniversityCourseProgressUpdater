@@ -62,6 +62,18 @@ const getProgressJsonData = async (filePath) => {
 const createMdTableRow = tableRowValues => '| ' + tableRowValues.join(' | ') + ' |'
 
 /**
+ * @param {number} number Floating point number
+ * @returns {string} Visual representation of floating point number
+ */
+const renderFloatingPointNumber = (number) => number.toFixed(2).replace(/\.00$/, '')
+
+/**
+ * @param {number} percentage Percentage
+ * @returns {string} Visual representation of percentage
+ */
+const renderPercentage = (percentage) => renderFloatingPointNumber(percentage * 100)
+
+/**
  * @param {import('./update_progress_types').ProgressJson} progressJsonData The progress.json data
  * @param {string} [exerciseName] The name of the exercises that are visualized
  */
@@ -88,12 +100,11 @@ const renderNewProgressContent = async (progressJsonData, exerciseName) => {
 
     const tableState = []
     if (progressJsonData.options) {
-        if (progressJsonData.options.totalSubmissionPercentage !== undefined) {
-            const tableStateColumns = [exerciseName !== undefined ? `Necessary points (${exerciseName})` : 'Necessary points', "Current points"]
-            const tableStateHeader = [
-                createMdTableRow(tableStateColumns),
-                createMdTableRow(tableStateColumns.map(a => " --- "))
-            ]
+        const tableStateColumnsHeader = []
+        const tableStateColumnsBody = []
+        if (progressJsonData.options.minimumPointsPercentageAllSubmissions !== undefined) {
+            tableStateColumnsHeader.push("Necessary points")
+            tableStateColumnsHeader.push("Current points")
             const allPoints = progressJsonData.exercises.reduce((previousValue, currentValue) => {
                 let maxPoints = 0
                 if (currentValue.submission) {
@@ -108,20 +119,50 @@ const renderNewProgressContent = async (progressJsonData, exerciseName) => {
                 }
                 return previousValue + achievedPoints
             }, 0)
-            const necessaryPoints = allPoints * (progressJsonData.options.totalSubmissionPercentage / 100)
+            const necessaryPoints = allPoints * (progressJsonData.options.minimumPointsPercentageAllSubmissions / 100)
             const achievedPointsPercentage = allAchievedPoints > 0
-                ? allAchievedPoints / allPoints * 100.0
+                ? allAchievedPoints / allPoints
                 : 0
-            const emojiIndicator = achievedPointsPercentage >= progressJsonData.options.totalSubmissionPercentage
-                ? ` ${readmeMarkdownEmojis.greenCheck}` : ''
-            const tableStateBody = [
-                createMdTableRow([
-                    `${necessaryPoints.toFixed(2).replace(/\.00$/, '')}/${allPoints} (${progressJsonData.options.totalSubmissionPercentage}%)`,
-                    `${allAchievedPoints}/${allPoints} (${achievedPointsPercentage.toFixed(2).replace(/\.00$/, '')}%)${emojiIndicator}`,
-                ])
-            ]
-            tableState.push(...tableStateHeader, ...tableStateBody, '')
+            const emojiIndicator = achievedPointsPercentage * 100 >= progressJsonData.options.minimumPointsPercentageAllSubmissions
+                ? ` ${readmeMarkdownEmojis.greenCheck}` : ` ${readmeMarkdownEmojis.redCross}`
+            if (tableStateColumnsBody.length === 0) {
+                tableStateColumnsBody.push([])
+            }
+            tableStateColumnsBody[0].push(...[
+                    `${renderFloatingPointNumber(necessaryPoints)}/${allPoints} (${progressJsonData.options.minimumPointsPercentageAllSubmissions}%)`,
+                    `${allAchievedPoints}/${allPoints} (${renderPercentage(achievedPointsPercentage)}%)${emojiIndicator}`,
+                ]
+            )
         }
+        if (progressJsonData.options.minimumSubmissions !== undefined) {
+            tableStateColumnsHeader.push("Necessary submissions")
+            tableStateColumnsHeader.push("Current submissions")
+            const allSubmittedNonZeroSubmissions = progressJsonData.exercises.reduce((previousValue, currentValue) => {
+                const isGradedNonZeroSubmission = (
+                    currentValue.submission
+                    && currentValue.submission.achievedPoints !== undefined
+                    && currentValue.submission.achievedPoints > 0
+                )
+                return previousValue + (isGradedNonZeroSubmission ? 1 : 0)
+            }, 0)
+            const allSubmissions = progressJsonData.exercises.length
+            const necessarySubmissions = progressJsonData.options.minimumSubmissions
+            const emojiIndicator = allSubmittedNonZeroSubmissions >= necessarySubmissions
+                ? ` ${readmeMarkdownEmojis.greenCheck}` : ` ${readmeMarkdownEmojis.redCross}`
+            if (tableStateColumnsBody.length === 0) {
+                tableStateColumnsBody.push([])
+            }
+            tableStateColumnsBody[0].push(...[
+                    `${necessarySubmissions}/${allSubmissions} (${renderPercentage(necessarySubmissions / allSubmissions)}%)`,
+                    `${allSubmittedNonZeroSubmissions}/${allSubmissions} (${renderPercentage(allSubmittedNonZeroSubmissions / allSubmissions)}%)${emojiIndicator}`,
+                ]
+            )
+        }
+        tableState.push(
+            ...[tableStateColumnsHeader, tableStateColumnsHeader.map(a => " --- ")].map(createMdTableRow),
+            ...tableStateColumnsBody.map(createMdTableRow),
+            ''
+        )
     }
     return [...tableState, ...tableProgressHeader, ...tableProgressBody].join('\n')
 }

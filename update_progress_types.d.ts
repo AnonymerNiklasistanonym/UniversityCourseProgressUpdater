@@ -10,7 +10,12 @@ export interface ProgressJsonExercise {
 }
 
 export interface ProgressJsonOptions {
-    totalSubmissionPercentage?: number
+    minimumPointsPercentageAllSubmissions?: number
+    minimumPointsAllSubmissions?: number
+    minimumSubmissions?: number
+    minimumSubmissionsPercentage?: number
+    minimumPointsPercentagePerSubmissions?: number
+    minimumPointsPerSubmissions?: number
 }
 
 export interface ProgressJson {
