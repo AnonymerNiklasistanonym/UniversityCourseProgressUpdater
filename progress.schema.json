@@ -1,7 +1,7 @@
 {
 	"$schema": "http://json-schema.org/draft-04/schema#",
 	"additionalProperties": false,
-	"title": "The schema of the progress",
+	"title": "JSON schema of progress data",
 	"properties": {
 		"$schema": {
 			"description": "Pointer to the schema against which this document should be validated (Schema URL/path)",
@@ -25,10 +25,10 @@
 			"additionalProperties": false,
 			"properties": {
 				"minimumPointsPercentageAllSubmissions": {
-					"description": "If set checks if the given minimum points percentage was achieved over all submissions",
+					"description": "If set checks if the given minimum points percentage (0.0 - 1.0) was achieved over all submissions",
 					"type": "number",
 					"minimum": 0.0,
-					"maximum": 100.0
+					"maximum": 1.0
 				},
 				"minimumPointsAllSubmissions": {
 					"description": "If set checks if the given minimum points was achieved over all submissions",
@@ -41,16 +41,16 @@
 					"minimum": 0.0
 				},
 				"minimumSubmissionsPercentage": {
-					"description": "If set checks if the given minimum submission count percentage was achieved over all submissions",
+					"description": "If set checks if the given minimum submission count percentage (0.0 - 1.0) was achieved over all submissions",
 					"type": "number",
 					"minimum": 0.0,
-					"maximum": 100.0
+					"maximum": 1.0
 				},
 				"minimumPointsPercentagePerSubmissions": {
-					"description": "If set checks if the given minimum points percentage was achieved for each submission",
+					"description": "If set checks if the given minimum points percentage (0.0 - 1.0) was achieved for each submission",
 					"type": "number",
 					"minimum": 0.0,
-					"maximum": 100.0
+					"maximum": 1.0
 				},
 				"minimumPointsPerSubmissions": {
 					"description": "If set checks if the given minimum points was achieved for each submission",

@@ -1,0 +1,8 @@
+{
+	"$schema": "./progress.schema.json",
+	"course": "Course",
+	"progressName": "ID",
+	"version": 2,
+	"exercises": [],
+	"options": {}
+}
