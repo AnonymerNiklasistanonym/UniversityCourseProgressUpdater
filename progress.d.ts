@@ -16,33 +16,43 @@ export interface JSONSchemaOfProgressData {
      */
     course: string
     /**
-     * Version of the progress updater
+     * All exercises
      */
-    version?: number
-    /**
-     * Name of the progress that is represented by the data
-     */
-    progressName: string
+    exercises: {
+        /**
+         * The directory of the exercise
+         */
+        directory?: string
+        /**
+         * The number of the exercise
+         */
+        number: number
+        /**
+         * The submission part of the exercise
+         */
+        submission?: {
+            /**
+             * The achieved points of the exercise
+             */
+            achievedPoints?: number
+            /**
+             * The maximum points of the exercise
+             */
+            points: number
+        }
+    }[]
     /**
      * Options for progress feedback
      */
     options?: {
         /**
-         * If set checks if the given minimum points percentage (0.0 - 1.0) was achieved over all submissions
-         */
-        minimumPointsPercentageAllSubmissions?: number
-        /**
          * If set checks if the given minimum points was achieved over all submissions
          */
         minimumPointsAllSubmissions?: number
         /**
-         * If set checks if the given minimum submission count was achieved over all submissions
+         * If set checks if the given minimum points percentage (0.0 - 1.0) was achieved over all submissions
          */
-        minimumSubmissions?: number
-        /**
-         * If set checks if the given minimum submission count percentage (0.0 - 1.0) was achieved over all submissions
-         */
-        minimumSubmissionsPercentage?: number
+        minimumPointsPercentageAllSubmissions?: number
         /**
          * If set checks if the given minimum points percentage (0.0 - 1.0) was achieved for each submission
          */
@@ -51,31 +61,21 @@ export interface JSONSchemaOfProgressData {
          * If set checks if the given minimum points was achieved for each submission
          */
         minimumPointsPerSubmissions?: number
+        /**
+         * If set checks if the given minimum submission count was achieved over all submissions
+         */
+        minimumSubmissions?: number
+        /**
+         * If set checks if the given minimum submission count percentage (0.0 - 1.0) was achieved over all submissions
+         */
+        minimumSubmissionsPercentage?: number
     }
     /**
-     * All exercises
+     * Name of the progress that is represented by the data
      */
-    exercises: {
-        /**
-         * The number of the exercise
-         */
-        number: number
-        /**
-         * The directory of the exercise
-         */
-        directory?: string
-        /**
-         * The submission part of the exercise
-         */
-        submission?: {
-            /**
-             * The maximum points of the exercise
-             */
-            points: number
-            /**
-             * The achieved points of the exercise
-             */
-            achievedPoints?: number
-        }
-    }[]
+    progressName: string
+    /**
+     * Version of the progress updater
+     */
+    version: number
 }
