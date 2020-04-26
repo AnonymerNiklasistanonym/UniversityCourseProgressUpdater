@@ -30,11 +30,7 @@ Prerequisites:
    # Progress
 
    [//]: # (Progress ID begin)
-
-| Exercise | Points |
-| --- | --- |
-
-[//]: # (Progress ID end)
+   [//]: # (Progress ID end)
    ...
    ```
 
