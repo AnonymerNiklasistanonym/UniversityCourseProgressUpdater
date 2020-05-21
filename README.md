@@ -42,17 +42,17 @@ Prerequisites:
 
 ## TODO
 
-Priority
+Priority:
 
-- add optional feedback file integration
-- fix/update point predictor when existing points are found
+- [ ] Add optional feedback file integration
+- [ ] Fix/Update point predictor when existing points are found
 
 Other:
 
-- Add examples
-- Add tests to verify it actually is correct
-- Add more options
-  - Option for minimum points/percentage of points per submission
-- Add emojis for each submission when option is enabled
-- Add default `progress.json` in which some default options are enabled
-- Allow a custom path to a README
+- [ ] Add examples
+- [ ] Add tests to verify it actually is correct
+- [ ] Add more options
+  - [ ] Option for minimum points/percentage of points per submission
+- [ ] Add emojis for each submission when option is enabled
+- [ ] Add default `progress.json` in which some default options are enabled
+- [ ] Allow a custom path to a README
