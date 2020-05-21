@@ -33,6 +33,10 @@
 								"minimum": 0,
 								"type": "number"
 							},
+							"feedbackFile": {
+								"description": "A file path (relative to the submission directory) to a file that contains feedback information about the submission",
+								"type": "string"
+							},
 							"points": {
 								"description": "The maximum points of the exercise",
 								"minimum": 0,

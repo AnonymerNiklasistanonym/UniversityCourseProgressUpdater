@@ -27,7 +27,7 @@ const readmeMarkdownEmojis = {
   yellowWarning: ':warning:'
 }
 
-const versionNumber = 2
+const versionNumber = 3
 
 const help = () =>{
     console.log("updateProgress [OPTIONS]\n")
@@ -178,7 +178,13 @@ const renderNewProgressContent = async (progressJsonData) => {
         if (exercise.submission) {
             if (exercise.submission.achievedPoints !== undefined) {
                 const achievedPercentage = exercise.submission.achievedPoints / exercise.submission.points
-                points = `${exercise.submission.achievedPoints}/${exercise.submission.points} (${renderPercentage(achievedPercentage)}%)`
+                let achievedPointsString = `${exercise.submission.achievedPoints}/${exercise.submission.points}`
+                if (exercise.submission.feedbackFile) {
+                    achievedPointsString = `[${achievedPointsString}](${
+                        path.join(exercise.directory ? exercise.directory : '.', exercise.submission.feedbackFile)
+                    })`
+                }
+                points = `${achievedPointsString} (${renderPercentage(achievedPercentage)}%)`
             } else {
                 points = `${exercise.submission.points}`
                 // Predictions if checkers are selected
@@ -243,6 +249,10 @@ const updateReadmeContent = async (filePath, progressIndicators, newProgressCont
         const readmePath = cliArgs.customReadmeFilePath ? cliArgs.customReadmeFilePath : defaultReadmePath
 
         const progressJsonData = await getProgressJsonData(progressJsonPath)
+        if (progressJsonData.version > versionNumber) {
+            console.warn(`The progress JSON file references a version later than this program supports (${progressJsonData.version}).`)
+            console.warn(`Try to update this program for the full support of all features and configurations.`)
+        }
         const newProgressContent = await renderNewProgressContent(progressJsonData)
         await updateReadmeContent(readmePath, readmeProgressIndicators(progressJsonData.progressName), newProgressContent)
     } catch (error) {

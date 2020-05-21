@@ -36,6 +36,10 @@ export interface JSONSchemaOfProgressData {
              */
             achievedPoints?: number
             /**
+             * A file path (relative to the submission directory) to a file that contains feedback information about the submission
+             */
+            feedbackFile?: string
+            /**
              * The maximum points of the exercise
              */
             points: number
