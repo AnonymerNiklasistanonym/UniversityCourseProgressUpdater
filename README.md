@@ -42,6 +42,13 @@ Prerequisites:
 
 ## TODO
 
+Priority
+
+- add optional feedback file integration
+- fix/update point predictor when existing points are found
+
+Other:
+
 - Add examples
 - Add tests to verify it actually is correct
 - Add more options
