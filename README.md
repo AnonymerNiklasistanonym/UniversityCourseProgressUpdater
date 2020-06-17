@@ -45,7 +45,7 @@ Prerequisites:
 - [ ] Add examples
 - [ ] Add tests to verify it actually is correct
 - [ ] Add more options
-  - [ ] Option for minimum points/percentage of points per submission
-- [ ] Add emojis for each submission when option is enabled
+  - [ ] Option for minimum points/percentage of points per submission (this is done through an additional column between `Exercise` and `Points` called `Necessary Points` and works the same as the total points over all submissions part)
+  - [ ] Option for multiple exercises where each exercise can have max and achieved points and it's own feedback which could for example be rendered like "5/10 + 12/12 = 17/22 (XY%)"
 - [ ] Add default `progress.json` in which some default options are enabled
 - [ ] Allow a custom path to a README
