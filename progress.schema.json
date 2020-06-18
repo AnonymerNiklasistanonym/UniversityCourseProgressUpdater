@@ -1,67 +1,56 @@
 {
 	"$schema": "http://json-schema.org/draft-04/schema#",
 	"additionalProperties": false,
-	"properties": {
-		"$schema": {
-			"description": "Pointer to the schema against which this document should be validated (Schema URL/path)",
-			"type": "string"
-		},
-		"course": {
-			"description": "Course name",
-			"type": "string"
-		},
-		"exercises": {
-			"description": "All exercises",
-			"items": {
-				"additionalProperties": false,
-				"properties": {
-					"directory": {
-						"description": "The directory of the exercise",
-						"type": "string"
-					},
-					"number": {
-						"description": "The number of the exercise",
-						"minimum": 0,
-						"type": "integer"
-					},
-					"submission": {
-						"additionalProperties": false,
-						"description": "The submission part of the exercise",
-						"properties": {
-							"achievedPoints": {
-								"description": "The achieved points of the exercise",
-								"minimum": 0,
-								"type": "number"
-							},
-							"feedbackFile": {
-								"description": "A file path (relative to the submission directory) to a file that contains feedback information about the submission",
-								"type": "string"
-							},
-							"points": {
-								"description": "The maximum points of the exercise",
-								"minimum": 0,
-								"type": "number"
-							}
-						},
-						"required": [
-							"points"
-						],
-						"type": "object"
-					}
-				},
-				"required": [
-					"number"
-				],
-				"type": "object"
-			},
-			"type": "array"
-		},
-		"options": {
+	"definitions": {
+		"exercise": {
 			"additionalProperties": false,
-			"description": "Options for progress feedback",
+			"description": "Represents a collection of tasks that is submitted at once",
+			"properties": {
+				"directory": {
+					"description": "The directory of the exercise",
+					"type": "string"
+				},
+				"feedbackFile": {
+					"description": "An optional file path (relative to the submission directory) to a file that contains feedback information about all tasks of the exercise (can be left out when not yet known, if never submitted or if not existing)",
+					"type": "string"
+				},
+				"number": {
+					"description": "The number of the exercise",
+					"minimum": 0,
+					"type": "integer"
+				},
+				"submission": {
+					"anyOf": [
+						{
+							"items": {
+								"$ref": "#/definitions/submissionTask"
+							},
+							"type": "array"
+						},
+						{
+							"$ref": "#/definitions/submissionTaskSummary"
+						}
+					],
+					"description": "Tracks the progress of the submission either as one summary of all tasks or as a list of single tasks"
+				}
+			},
+			"required": [
+				"number"
+			],
+			"title": "Course Exercise",
+			"type": "object"
+		},
+		"requirements": {
+			"additionalProperties": false,
+			"description": "Requirements to pass course",
 			"properties": {
 				"minimumPointsAllSubmissions": {
 					"description": "If set checks if the given minimum points was achieved over all submissions",
+					"minimum": 0,
+					"type": "number"
+				},
+				"minimumPointsPerSubmission": {
+					"description": "If set checks if the given minimum points was achieved for each submission",
 					"minimum": 0,
 					"type": "number"
 				},
@@ -71,14 +60,9 @@
 					"minimum": 0,
 					"type": "number"
 				},
-				"minimumPointsPercentagePerSubmissions": {
+				"minimumPointsPercentagePerSubmission": {
 					"description": "If set checks if the given minimum points percentage (0.0 - 1.0) was achieved for each submission",
 					"maximum": 1,
-					"minimum": 0,
-					"type": "number"
-				},
-				"minimumPointsPerSubmissions": {
-					"description": "If set checks if the given minimum points was achieved for each submission",
 					"minimum": 0,
 					"type": "number"
 				},
@@ -94,10 +78,89 @@
 					"type": "number"
 				}
 			},
+			"title": "Course Requirements",
 			"type": "object"
 		},
+		"submissionTask": {
+			"additionalProperties": false,
+			"description": "Represents one task of all tasks of the exercise",
+			"properties": {
+				"achievedPoints": {
+					"description": "The total achieved points of this task of the exercise (can be left out when not yet known or if never submitted)",
+					"minimum": 0,
+					"type": "number"
+				},
+				"feedbackFile": {
+					"description": "An optional file path (relative to the submission directory) to a file that contains feedback information about this task of the exercise (can be left out when not yet known, if never submitted or if not existing)",
+					"type": "string"
+				},
+				"name": {
+					"description": "An optional name of this task of the exercise",
+					"type": "string"
+				},
+				"notSubmitted": {
+					"description": "An optional information that can be set to true if this task of the exercise was never submitted",
+					"type": "boolean"
+				},
+				"points": {
+					"description": "The maximum points of this task of the exercise",
+					"minimum": 0,
+					"type": "number"
+				}
+			},
+			"required": [
+				"points"
+			],
+			"title": "Course Exercise Task Submission"
+		},
+		"submissionTaskSummary": {
+			"additionalProperties": false,
+			"description": "Represents a summary of all tasks of the exercise",
+			"properties": {
+				"achievedPoints": {
+					"description": "The total achieved points of all tasks of the exercise (can be left out when not yet known or if never submitted)",
+					"minimum": 0,
+					"type": "number"
+				},
+				"notSubmitted": {
+					"description": "An optional information that can be set to true if all tasks of the exercise were never submitted",
+					"type": "boolean"
+				},
+				"points": {
+					"description": "The maximum points of all tasks of the exercise",
+					"minimum": 0,
+					"type": "number"
+				}
+			},
+			"required": [
+				"points"
+			],
+			"title": "Course Exercise Task Submission Summary"
+		}
+	},
+	"description": "Structured data object that can contain all information about submissions of a course (or part of a course) plus the requirements to pass the course (or part of a course)",
+	"properties": {
+		"$schema": {
+			"description": "Pointer to the schema against which this document should be validated (Schema URL/path)",
+			"type": "string"
+		},
+		"name": {
+			"description": "Course name",
+			"type": "string"
+		},
+		"exercises": {
+			"description": "All exercises of the course",
+			"items": {
+				"$ref": "#/definitions/exercise"
+			},
+			"type": "array"
+		},
+		"requirements": {
+			"description": "Requirements to pass the course",
+			"$ref": "#/definitions/requirements"
+		},
 		"progressName": {
-			"description": "Name of the progress that is represented by the data",
+			"description": "Name of the course progress that is represented by the data when inserted in a markdown file for visualization (this allows for multiple such data files of the same course)",
 			"type": "string"
 		},
 		"version": {
@@ -111,6 +174,6 @@
 		"progressName",
 		"version"
 	],
-	"title": "JSON schema of progress data",
+	"title": "Course Progress Data",
 	"type": "object"
 }

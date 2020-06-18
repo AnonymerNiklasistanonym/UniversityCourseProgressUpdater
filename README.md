@@ -12,7 +12,13 @@ Prerequisites:
 
 1. Have `nodejs` installed
 
-2. File structure:
+2. Create `updateProgress.js` in the directory `dist`
+
+   ```sh
+   node dist.js # without 'node' possible
+   ```
+
+3. Create the following file structure (use the `updateProgress.js` from the `dist` directory):
 
    ```text
    repo
@@ -23,7 +29,7 @@ Prerequisites:
          |_ updateProgress.js
    ```
 
-3. `README.md` begin/end comment:
+4. `README.md` begin/end comment:
 
    ```markdown
    ....
@@ -34,18 +40,22 @@ Prerequisites:
    ...
    ```
 
-4. Run the program without any other dependencies:
+5. Run the program without any other dependencies:
 
    ```sh
-   ./progress/updateProgress.js
+   node ./progress/updateProgress.js # without 'node' possible
    ```
 
 ## TODO
 
-- [ ] Add examples
-- [ ] Add tests to verify it actually is correct
+- [x] Add examples
+  - [ ] More examples
+- [x] Add tests to verify it actually is correct
+  - [ ] More test coverage (80% would be nice)
 - [ ] Add more options
   - [ ] Option for minimum points/percentage of points per submission (this is done through an additional column between `Exercise` and `Points` called `Necessary Points` and works the same as the total points over all submissions part)
   - [ ] Option for multiple exercises where each exercise can have max and achieved points and it's own feedback which could for example be rendered like "5/10 + 12/12 = 17/22 (XY%)"
+  - [x] Option to declare exercise as not submitted
+    - [ ] Needs to be tested
 - [ ] Add default `progress.json` in which some default options are enabled
-- [ ] Allow a custom path to a README
+- [ ] Add predictions (very complex but would be cool)

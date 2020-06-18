@@ -6,7 +6,10 @@
  * and run json-schema-to-typescript to regenerate this file.
  */
 
-export interface JSONSchemaOfProgressData {
+/**
+ * Structured data object that can contain all information about submissions of a course (or part of a course) plus the requirements to pass the course (or part of a course)
+ */
+export interface CourseProgressData {
     /**
      * Pointer to the schema against which this document should be validated (Schema URL/path)
      */
@@ -14,72 +17,110 @@ export interface JSONSchemaOfProgressData {
     /**
      * Course name
      */
-    course: string
+    name?: string
     /**
-     * All exercises
+     * All exercises of the course
      */
-    exercises: {
-        /**
-         * The directory of the exercise
-         */
-        directory?: string
-        /**
-         * The number of the exercise
-         */
-        number: number
-        /**
-         * The submission part of the exercise
-         */
-        submission?: {
-            /**
-             * The achieved points of the exercise
-             */
-            achievedPoints?: number
-            /**
-             * A file path (relative to the submission directory) to a file that contains feedback information about the submission
-             */
-            feedbackFile?: string
-            /**
-             * The maximum points of the exercise
-             */
-            points: number
-        }
-    }[]
+    exercises: CourseExercise[]
+    requirements?: CourseRequirements
     /**
-     * Options for progress feedback
-     */
-    options?: {
-        /**
-         * If set checks if the given minimum points was achieved over all submissions
-         */
-        minimumPointsAllSubmissions?: number
-        /**
-         * If set checks if the given minimum points percentage (0.0 - 1.0) was achieved over all submissions
-         */
-        minimumPointsPercentageAllSubmissions?: number
-        /**
-         * If set checks if the given minimum points percentage (0.0 - 1.0) was achieved for each submission
-         */
-        minimumPointsPercentagePerSubmissions?: number
-        /**
-         * If set checks if the given minimum points was achieved for each submission
-         */
-        minimumPointsPerSubmissions?: number
-        /**
-         * If set checks if the given minimum submission count was achieved over all submissions
-         */
-        minimumSubmissions?: number
-        /**
-         * If set checks if the given minimum submission count percentage (0.0 - 1.0) was achieved over all submissions
-         */
-        minimumSubmissionsPercentage?: number
-    }
-    /**
-     * Name of the progress that is represented by the data
+     * Name of the course progress that is represented by the data when inserted in a markdown file for visualization (this allows for multiple such data files of the same course)
      */
     progressName: string
     /**
      * Version of the progress updater
      */
     version: number
+}
+/**
+ * Represents a collection of tasks that is submitted at once
+ */
+export interface CourseExercise {
+    /**
+     * The directory of the exercise
+     */
+    directory?: string
+    /**
+     * An optional file path (relative to the submission directory) to a file that contains feedback information about all tasks of the exercise (can be left out when not yet known, if never submitted or if not existing)
+     */
+    feedbackFile?: string
+    /**
+     * The number of the exercise
+     */
+    number: number
+    /**
+     * Tracks the progress of the submission either as one summary of all tasks or as a list of single tasks
+     */
+    submission?: CourseExerciseTaskSubmission[] | CourseExerciseTaskSubmissionSummary
+}
+/**
+ * Represents one task of all tasks of the exercise
+ */
+export interface CourseExerciseTaskSubmission {
+    /**
+     * The total achieved points of this task of the exercise (can be left out when not yet known or if never submitted)
+     */
+    achievedPoints?: number
+    /**
+     * An optional file path (relative to the submission directory) to a file that contains feedback information about this task of the exercise (can be left out when not yet known, if never submitted or if not existing)
+     */
+    feedbackFile?: string
+    /**
+     * An optional name of this task of the exercise
+     */
+    name?: string
+    /**
+     * An optional information that can be set to true if this task of the exercise was never submitted
+     */
+    notSubmitted?: boolean
+    /**
+     * The maximum points of this task of the exercise
+     */
+    points: number
+}
+/**
+ * Represents a summary of all tasks of the exercise
+ */
+export interface CourseExerciseTaskSubmissionSummary {
+    /**
+     * The total achieved points of all tasks of the exercise (can be left out when not yet known or if never submitted)
+     */
+    achievedPoints?: number
+    /**
+     * An optional information that can be set to true if all tasks of the exercise were never submitted
+     */
+    notSubmitted?: boolean
+    /**
+     * The maximum points of all tasks of the exercise
+     */
+    points: number
+}
+/**
+ * Requirements to pass the course
+ */
+export interface CourseRequirements {
+    /**
+     * If set checks if the given minimum points was achieved over all submissions
+     */
+    minimumPointsAllSubmissions?: number
+    /**
+     * If set checks if the given minimum points was achieved for each submission
+     */
+    minimumPointsPerSubmission?: number
+    /**
+     * If set checks if the given minimum points percentage (0.0 - 1.0) was achieved over all submissions
+     */
+    minimumPointsPercentageAllSubmissions?: number
+    /**
+     * If set checks if the given minimum points percentage (0.0 - 1.0) was achieved for each submission
+     */
+    minimumPointsPercentagePerSubmission?: number
+    /**
+     * If set checks if the given minimum submission count was achieved over all submissions
+     */
+    minimumSubmissions?: number
+    /**
+     * If set checks if the given minimum submission count percentage (0.0 - 1.0) was achieved over all submissions
+     */
+    minimumSubmissionsPercentage?: number
 }
