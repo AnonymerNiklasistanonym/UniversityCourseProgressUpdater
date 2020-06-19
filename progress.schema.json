@@ -7,7 +7,7 @@
 			"description": "Represents a collection of tasks that is submitted at once",
 			"properties": {
 				"directory": {
-					"description": "The directory of the exercise",
+					"description": "Optionally a directory of the exercise",
 					"type": "string"
 				},
 				"feedbackFile": {
@@ -90,6 +90,10 @@
 					"minimum": 0,
 					"type": "number"
 				},
+				"directory": {
+					"description": "Optionally a directory of the exercise",
+					"type": "string"
+				},
 				"feedbackFile": {
 					"description": "An optional file path (relative to the submission directory) to a file that contains feedback information about this task of the exercise (can be left out when not yet known, if never submitted or if not existing)",
 					"type": "string"
@@ -144,10 +148,6 @@
 			"description": "Pointer to the schema against which this document should be validated (Schema URL/path)",
 			"type": "string"
 		},
-		"name": {
-			"description": "Course name",
-			"type": "string"
-		},
 		"exercises": {
 			"description": "All exercises of the course",
 			"items": {
@@ -155,13 +155,17 @@
 			},
 			"type": "array"
 		},
-		"requirements": {
-			"description": "Requirements to pass the course",
-			"$ref": "#/definitions/requirements"
+		"name": {
+			"description": "Course name",
+			"type": "string"
 		},
 		"progressName": {
 			"description": "Name of the course progress that is represented by the data when inserted in a markdown file for visualization (this allows for multiple such data files of the same course)",
 			"type": "string"
+		},
+		"requirements": {
+			"$ref": "#/definitions/requirements",
+			"description": "Requirements to pass the course"
 		},
 		"version": {
 			"description": "Version of the progress updater",

@@ -15,18 +15,18 @@ export interface CourseProgressData {
      */
     $schema?: string
     /**
+     * All exercises of the course
+     */
+    exercises: CourseExercise[]
+    /**
      * Course name
      */
     name?: string
     /**
-     * All exercises of the course
-     */
-    exercises: CourseExercise[]
-    requirements?: CourseRequirements
-    /**
      * Name of the course progress that is represented by the data when inserted in a markdown file for visualization (this allows for multiple such data files of the same course)
      */
     progressName: string
+    requirements?: CourseRequirements
     /**
      * Version of the progress updater
      */
@@ -37,7 +37,7 @@ export interface CourseProgressData {
  */
 export interface CourseExercise {
     /**
-     * The directory of the exercise
+     * Optionally a directory of the exercise
      */
     directory?: string
     /**
@@ -61,6 +61,10 @@ export interface CourseExerciseTaskSubmission {
      * The total achieved points of this task of the exercise (can be left out when not yet known or if never submitted)
      */
     achievedPoints?: number
+    /**
+     * Optionally a directory of the exercise
+     */
+    directory?: string
     /**
      * An optional file path (relative to the submission directory) to a file that contains feedback information about this task of the exercise (can be left out when not yet known, if never submitted or if not existing)
      */

@@ -1,0 +1,88 @@
+{
+	"$schema": "../progress.schema.json",
+	"name": "Course Example 04 SS20",
+	"exercises": [
+		{
+			"directory": "ex01",
+			"number": 1,
+			"submission": [
+				{
+					"name": "theoretical",
+					"achievedPoints": 12.5,
+					"points": 15
+				},
+				{
+					"name": "programming",
+					"achievedPoints": 10,
+					"feedbackFile": "feedback.pdf",
+					"directory": "programming",
+					"points": 15
+				}
+			],
+			"feedbackFile": "feedback.pdf"
+		},
+		{
+			"directory": "ex02",
+			"number": 2,
+			"submission": [
+				{
+					"name": "theoretical",
+					"points": 15
+				},
+				{
+					"name": "programming",
+					"points": 15
+				}
+			],
+			"feedbackFile": "feedback.pdf"
+		},
+		{
+			"directory": "ex03",
+			"number": 3,
+			"submission": [
+				{
+					"name": "theoretical",
+					"points": 15
+				},
+				{
+					"name": "programming",
+					"points": 15
+				}
+			]
+		},
+		{
+			"directory": "ex04",
+			"number": 4,
+			"submission": [
+				{
+					"name": "theoretical",
+					"points": 15
+				},
+				{
+					"name": "programming",
+					"points": 15
+				}
+			]
+		},
+		{
+			"directory": "ex05",
+			"number": 5,
+			"submission": [
+				{
+					"name": "theoretical",
+					"points": 15
+				},
+				{
+					"name": "programming",
+					"points": 15
+				}
+			]
+		}
+	],
+	"requirements": {
+		"minimumPointsPercentageAllSubmissions": 0.5,
+		"minimumPointsPerSubmission": 15
+	},
+	"progressName": "Course Example 04",
+	"version": 4
+}
