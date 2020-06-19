@@ -440,6 +440,10 @@ const renderExerciseRow = (exercise, requirements = {}, walkingObject = { curren
         // TODO Predictions in external method (how many points at least, are there already enough points accumulated, ...)
         // Probably add new entry to config file for this
     }
+    if (exercise.notes) {
+        if (notesString.length > 0) { notesString += ' - ' }
+        notesString += exercise.notes
+    }
     return [exerciseNameString, exercisePointsString, notesString]
 }
 

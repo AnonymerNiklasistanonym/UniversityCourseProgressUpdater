@@ -14,6 +14,10 @@
 					"description": "An optional file path (relative to the submission directory) to a file that contains feedback information about all tasks of the exercise (can be left out when not yet known, if never submitted or if not existing)",
 					"type": "string"
 				},
+				"notes": {
+					"description": "Exercise notes",
+					"type": "string"
+				},
 				"number": {
 					"description": "The number of the exercise",
 					"minimum": 0,

@@ -46,6 +46,10 @@ export interface CourseExercise {
      */
     feedbackFile?: string
     /**
+     * Exercise notes
+     */
+    notes?: string
+    /**
      * The number of the exercise
      */
     number: number

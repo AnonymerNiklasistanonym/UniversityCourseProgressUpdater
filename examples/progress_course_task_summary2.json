@@ -13,6 +13,7 @@
 		},
 		{
 			"directory": "ex02",
+			"notes": "Additional notes for exercise 2",
 			"number": 2,
 			"submission": {
 				"achievedPoints": 39,

@@ -24,6 +24,7 @@
 		{
 			"directory": "ex02",
 			"number": 2,
+			"notes": "Notes for second exercise",
 			"submission": [
 				{
 					"name": "theoretical",
