@@ -40,6 +40,18 @@
 			"title": "Course Exercise",
 			"type": "object"
 		},
+		"predictions": {
+			"additionalProperties": false,
+			"description": "Predictions that should be enabled for the visualization",
+			"properties": {
+				"enableNumberOfPointsToPass": {
+					"description": "If set shows for not submitted exercises the number of points that are necessary to pass",
+					"type": "boolean"
+				}
+			},
+			"title": "Course Predictions",
+			"type": "object"
+		},
 		"requirements": {
 			"additionalProperties": false,
 			"description": "Requirements to pass course",
@@ -159,13 +171,15 @@
 			"description": "Course name",
 			"type": "string"
 		},
+		"predictions": {
+			"$ref": "#/definitions/predictions"
+		},
 		"progressName": {
 			"description": "Name of the course progress that is represented by the data when inserted in a markdown file for visualization (this allows for multiple such data files of the same course)",
 			"type": "string"
 		},
 		"requirements": {
-			"$ref": "#/definitions/requirements",
-			"description": "Requirements to pass the course"
+			"$ref": "#/definitions/requirements"
 		},
 		"version": {
 			"description": "Version of the progress updater",

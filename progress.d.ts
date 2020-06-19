@@ -22,6 +22,7 @@ export interface CourseProgressData {
      * Course name
      */
     name?: string
+    predictions?: CoursePredictions
     /**
      * Name of the course progress that is represented by the data when inserted in a markdown file for visualization (this allows for multiple such data files of the same course)
      */
@@ -100,7 +101,16 @@ export interface CourseExerciseTaskSubmissionSummary {
     points: number
 }
 /**
- * Requirements to pass the course
+ * Predictions that should be enabled for the visualization
+ */
+export interface CoursePredictions {
+    /**
+     * If set shows for not submitted exercises the number of points that are necessary to pass
+     */
+    enableNumberOfPointsToPass?: boolean
+}
+/**
+ * Requirements to pass course
  */
 export interface CourseRequirements {
     /**
