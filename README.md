@@ -46,11 +46,18 @@ Prerequisites:
    node ./progress/updateProgress.js # without 'node' possible
    ```
 
+## Development
+
+- Lint and automatically fix most linting errors: `npm run lintAndFix`
+- Run tests: `npm test`
+- Get test coverage: `npm run coverage` (for best visualization open the created `coverage/lcov-report/index.html` file in your browser)
+- Update examples: `npm run examples`
+
 ## TODO
 
 - [x] Add examples
   - [ ] More examples
-- [x] Add tests to verify it actually is correct
+- [x] Add tests to verify its actually correct
   - [ ] More test coverage (80% would be nice)
 - [ ] Add more options
   - [ ] Option for minimum points/percentage of points per submission (this is done through an additional column between `Exercise` and `Points` called `Necessary Points` and works the same as the total points over all submissions part)

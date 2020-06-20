@@ -10,7 +10,8 @@
     "updateJsonSchemaTsTypes": "ts-node jsonSchema2dts/createTsTypeFromJsonSchema.ts",
     "test": "mocha tests/**/*.test.js",
     "coverage": "nyc --reporter=lcov --reporter=text npm run test",
-    "lint": "eslint -c .eslintrc.js --ext .js updateProgress.js updateProgressLib.js dist.js examples tests --fix"
+    "lintAndFix": "eslint -c .eslintrc.js --ext .js updateProgress.js updateProgressLib.js dist.js examples tests --fix",
+    "lint": "eslint -c .eslintrc.js --ext .js updateProgress.js updateProgressLib.js dist.js examples tests"
   },
   "license": "MIT",
   "dependencies": {},
