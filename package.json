@@ -11,7 +11,7 @@
     "lint": "eslint -c .eslintrc.js --ext .js updateProgress.js updateProgressLib.js .eslintrc.js",
     "lintAndFix": "eslint -c .eslintrc.js --ext .js updateProgress.js updateProgressLib.js .eslintrc.js .eslintrc.ts.js tests --fix",
     "lintAndFixTs": "eslint -c .eslintrc.ts.js --ext .ts dist.ts updateProgressTypes.d.ts examples jsonSchema2dts --fix",
-    "lintTs": "eslint -c .eslintrc.zs.js --ext .ts dist.ts updateProgressTypes.d.ts examples jsonSchema2dts",
+    "lintTs": "eslint -c .eslintrc.ts.js --ext .ts dist.ts updateProgressTypes.d.ts examples jsonSchema2dts",
     "start": "node updateProgress.js",
     "test": "mocha tests/**/*.test.js",
     "updateJsonSchemaTsTypes": "ts-node jsonSchema2dts/createTsTypeFromJsonSchema.ts"

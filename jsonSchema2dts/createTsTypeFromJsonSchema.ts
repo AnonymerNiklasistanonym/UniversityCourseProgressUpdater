@@ -9,19 +9,17 @@ const outputFilePath = path.join(__dirname, '..', 'progress.d.ts')
 const bannerCommentFilePath = path.join(__dirname, 'bannerComment.ts');
 
 (async () => {
-    try {
-        const bannerComment = await fs.readFile(bannerCommentFilePath)
-        const typeFileContent = await compileFromFile(jsonSchemaFilePath, {
-            bannerComment: bannerComment.toString(),
-            style: {
-                semi: false,
-                tabWidth: 4,
-                trailingComma: 'none'
-            }
-        })
-        await fs.writeFile(outputFilePath, typeFileContent)
-    } catch (error) {
-        console.error(error)
-        return process.exit(1)
-    }
-})()
+    const bannerComment = await fs.readFile(bannerCommentFilePath)
+    const typeFileContent = await compileFromFile(jsonSchemaFilePath, {
+        bannerComment: bannerComment.toString(),
+        style: {
+            semi: false,
+            tabWidth: 4,
+            trailingComma: 'none'
+        }
+    })
+    await fs.writeFile(outputFilePath, typeFileContent)
+})().catch(error => {
+    console.error(error)
+    return process.exit(1)
+})

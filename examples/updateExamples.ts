@@ -24,24 +24,22 @@ const runUpdateProgress = (customProgressJson: string, customReadme: string): Pr
 
 // Main method (async wrapper)
 (async () => {
-    try {
-        const examples = [
-            'progress_course_task_list', 'progress_course_task_summary', 'progress_course_task_mixed',
-            'progress_course_task_list2', 'progress_course_task_summary2', 'progress_course_task_list3'
-        ]
-        let result: CliOutputInfo
-        for (const example of examples) {
-            result = await runUpdateProgress(path.join(__dirname, `${example}.json`), path.join(__dirname, `${example}.md`))
-            console.log(result.command)
-            if (result.stdout.length > 0) {
-                console.log(result.stdout)
-            }
-            if (result.stderr.length > 0) {
-                console.warn(result.stderr)
-            }
+    const examples = [
+        'progress_course_task_list', 'progress_course_task_summary', 'progress_course_task_mixed',
+        'progress_course_task_list2', 'progress_course_task_summary2', 'progress_course_task_list3'
+    ]
+    let result: CliOutputInfo
+    for (const example of examples) {
+        result = await runUpdateProgress(path.join(__dirname, `${example}.json`), path.join(__dirname, `${example}.md`))
+        console.log(result.command)
+        if (result.stdout.length > 0) {
+            console.log(result.stdout)
         }
-    } catch (error) {
-        console.error(error)
-        return process.exit(1)
+        if (result.stderr.length > 0) {
+            console.warn(result.stderr)
+        }
     }
-})()
+})().catch(error => {
+    console.error(error)
+    return process.exit(1)
+})
