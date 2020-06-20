@@ -1,7 +1,7 @@
-#!/usr/bin/env node
+#!/usr/bin/env ts-node
 
-const fs = require('fs').promises
-const path = require('path');
+import { promises as fs } from 'fs'
+import * as path from 'path';
 
 // Main method (async wrapper)
 (async () => {

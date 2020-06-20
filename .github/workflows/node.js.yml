@@ -20,3 +20,4 @@ jobs:
         CI: true
     - run: npm run examples
     - run: npm run lint
+    - run: npm run lintTs

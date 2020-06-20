@@ -1,18 +1,23 @@
-#!/usr/bin/env node
+#!/usr/bin/env ts-node
 
-const { exec } = require('child_process')
-const path = require('path')
+import { exec } from 'child_process'
+import * as path from 'path'
 
-const runUpdateProgress = (customProgressJson, customReadme) => {
+interface CliOutputInfo {
+    command: string
+    stderr: string
+    stdout: string
+}
+
+const runUpdateProgress = (customProgressJson: string, customReadme: string): Promise<CliOutputInfo> => {
     return new Promise((resolve, reject) => {
         const pathToUpdateProgress = path.join(__dirname, '..', 'updateProgress.js')
-        const command = `${pathToUpdateProgress} CUSTOM_PROGRESS_JSON=${customProgressJson} CUSTOM_README=${customReadme}`
-        console.log(command)
+        const command = `node ${pathToUpdateProgress} CUSTOM_PROGRESS_JSON=${customProgressJson} CUSTOM_README=${customReadme}`
         exec(command, (err, stdout, stderr) => {
             if (err) {
                 return reject(err)
             }
-            return resolve({ stderr, stdout })
+            return resolve({ command, stderr, stdout })
         })
     })
 }
@@ -24,10 +29,16 @@ const runUpdateProgress = (customProgressJson, customReadme) => {
             'progress_course_task_list', 'progress_course_task_summary', 'progress_course_task_mixed',
             'progress_course_task_list2', 'progress_course_task_summary2', 'progress_course_task_list3'
         ]
-        let result
+        let result: CliOutputInfo
         for (const example of examples) {
             result = await runUpdateProgress(path.join(__dirname, `${example}.json`), path.join(__dirname, `${example}.md`))
-            console.log(result)
+            console.log(result.command)
+            if (result.stdout.length > 0) {
+                console.log(result.stdout)
+            }
+            if (result.stderr.length > 0) {
+                console.warn(result.stderr)
+            }
         }
     } catch (error) {
         console.error(error)
