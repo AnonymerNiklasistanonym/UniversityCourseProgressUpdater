@@ -38,6 +38,10 @@ export interface CourseProgressData {
  */
 export interface CourseExercise {
     /**
+     * Optionally a submission date of the exercise (run `node` and then `new Date(new Date().toDateString())` or `new Date(new Date(YEAR, MONTH - 1, DATE).toDateString())`
+     */
+    submissionDate?: string
+    /**
      * Optionally a directory of the exercise
      */
     directory?: string

@@ -6,6 +6,12 @@
 			"additionalProperties": false,
 			"description": "Represents a collection of tasks that is submitted at once",
 			"properties": {
+				"submissionDate": {
+					"description": "Optionally a submission date of the exercise (run `node` and then `new Date(new Date().toDateString())` or `new Date(new Date(YEAR, MONTH - 1, DATE).toDateString())`",
+					"default": "2020-09-06T22:00:00.000Z",
+					"type": "string",
+					"format": "date-time"
+				},
 				"directory": {
 					"description": "Optionally a directory of the exercise",
 					"type": "string"

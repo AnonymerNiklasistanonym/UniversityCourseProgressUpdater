@@ -1,30 +1,30 @@
 {
 	"$schema": "../progress.schema.json",
-	"name": "Course Example 04 SS20",
 	"exercises": [
 		{
 			"directory": "ex01",
+			"feedbackFile": "feedback.pdf",
 			"number": 1,
 			"submission": [
 				{
-					"name": "theoretical",
 					"achievedPoints": 12.5,
+					"name": "theoretical",
 					"points": 15
 				},
 				{
-					"name": "programming",
 					"achievedPoints": 10,
-					"feedbackFile": "feedback.pdf",
 					"directory": "programming",
+					"feedbackFile": "feedback.pdf",
+					"name": "programming",
 					"points": 15
 				}
-			],
-			"feedbackFile": "feedback.pdf"
+			]
 		},
 		{
 			"directory": "ex02",
-			"number": 2,
+			"feedbackFile": "feedback.pdf",
 			"notes": "Notes for second exercise",
+			"number": 2,
 			"submission": [
 				{
 					"name": "theoretical",
@@ -34,8 +34,7 @@
 					"name": "programming",
 					"points": 15
 				}
-			],
-			"feedbackFile": "feedback.pdf"
+			]
 		},
 		{
 			"directory": "ex03",
@@ -80,9 +79,10 @@
 			]
 		}
 	],
+	"name": "Course Example 04 SS20",
+	"progressName": "Course Example 04",
 	"requirements": {
 		"minimumPointsPercentageAllSubmissions": 0.5
 	},
-	"progressName": "Course Example 04",
 	"version": 4
 }

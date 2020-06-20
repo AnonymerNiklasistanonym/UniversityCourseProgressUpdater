@@ -25,14 +25,14 @@
 			"submission": [
 				{
 					"achievedPoints": 11.5,
-					"name": "theoretical",
 					"feedbackFile": "feedback_theoretical.pdf",
+					"name": "theoretical",
 					"points": 15
 				},
 				{
 					"achievedPoints": 8,
-					"name": "programming",
 					"feedbackFile": "feedback_programming.pdf",
+					"name": "programming",
 					"points": 15
 				}
 			]

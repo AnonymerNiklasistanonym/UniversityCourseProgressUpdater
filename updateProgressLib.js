@@ -336,6 +336,11 @@ const checkRequirements = (exercise, requirements) => {
     }
 }
 
+/** @param {Date} date */
+const convertDateToHumanReadableDate = (date) => {
+    return `${date.getFullYear()}.${('0' + (date.getMonth() + 1)).slice(-2)}.${('0' + date.getDate()).slice(-2)}`
+}
+
 /**
  * @param {import('./progress').CourseExercise} exercise
  * @param {import('./progress').CourseRequirements} requirements
@@ -343,7 +348,10 @@ const checkRequirements = (exercise, requirements) => {
  */
 const renderExerciseRow = (exercise, requirements = {}, walkingObject = { currentlyAchievedPoints: 0 }) => {
     // If exercise directory is given link it on the exercise number (= id)
-    const exerciseNameString = exercise.directory ? `[${exercise.number}](${exercise.directory})` : `${exercise.number}`
+    let exerciseNameString = exercise.directory ? `[${exercise.number}](${exercise.directory})` : `${exercise.number}`
+    if (exercise.submissionDate) {
+        exerciseNameString += ` (${convertDateToHumanReadableDate(new Date(exercise.submissionDate))})`
+    }
     let exercisePointsString = ''
     let notesString = ''
     if (exercise.submission) {
