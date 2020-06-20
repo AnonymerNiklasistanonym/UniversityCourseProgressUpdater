@@ -12,13 +12,13 @@ Prerequisites:
 
 1. Have `nodejs` installed
 
-2. Create `updateProgress.js` in the directory `dist`
+2. Create `updateProgress.js` (and copy connected files) in the directory `dist`
 
    ```sh
-   node dist.js # without 'node' possible
+   npm run dist
    ```
 
-3. Create the following file structure (use the `updateProgress.js` from the `dist` directory):
+3. Create the following file structure (use the created files from the `dist` directory):
 
    ```text
    repo
@@ -48,7 +48,7 @@ Prerequisites:
 
 ## Development
 
-- Lint and automatically fix most linting errors: `npm run lintAndFix`
+- Lint and automatically fix most linting errors: `npm run lintAndFix`, `npm run lintAndFixTs`
 - Run tests: `npm test`
 - Get test coverage: `npm run coverage` (for best visualization open the created `coverage/lcov-report/index.html` file in your browser)
 - Update examples: `npm run examples`
