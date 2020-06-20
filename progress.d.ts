@@ -21,7 +21,7 @@ export interface CourseProgressData {
     /**
      * Course name
      */
-    name?: string
+    name: string
     predictions?: CoursePredictions
     /**
      * Name of the course progress that is represented by the data when inserted in a markdown file for visualization (this allows for multiple such data files of the same course)
