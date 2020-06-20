@@ -359,7 +359,7 @@ const renderExerciseRow = (exercise, requirements = {}, walkingObject = { curren
                     // Task name string part
                     let taskNamePart = ''
                     if (taskSubmission.name) {
-                        const taskDirectory = cleanupUndefinedList([exercise.directory, taskSubmission.directory], a => path.join(...a))
+                        const taskDirectory = cleanupUndefinedList([exercise.directory, taskSubmission.directory], a => path.posix.join(...a))
                         taskNamePart = taskSubmission.directory ? ` (*[${taskSubmission.name}](${taskDirectory})*)` : ` (*${taskSubmission.name}*)`
                     }
                     // Points string part
@@ -369,7 +369,7 @@ const renderExerciseRow = (exercise, requirements = {}, walkingObject = { curren
                         allTasksWereNotSubmitted = false
                         pointsStringPart = `${taskSubmission.achievedPoints}/${taskSubmission.points}`
                         if (taskSubmission.feedbackFile) {
-                            const feedbackPath = cleanupUndefinedList([exercise.directory, taskSubmission.directory, taskSubmission.feedbackFile], a => path.join(...a))
+                            const feedbackPath = cleanupUndefinedList([exercise.directory, taskSubmission.directory, taskSubmission.feedbackFile], a => path.posix.join(...a))
                             pointsStringPart = `[${pointsStringPart}](${feedbackPath})`
                         }
                     } else if (allAchievedPointsExercise > 0) {
@@ -401,7 +401,7 @@ const renderExerciseRow = (exercise, requirements = {}, walkingObject = { curren
                     }
                 }
                 if (exercise.feedbackFile) {
-                    const feedbackPath = cleanupUndefinedList([exercise.directory, exercise.feedbackFile], a => path.join(...a))
+                    const feedbackPath = cleanupUndefinedList([exercise.directory, exercise.feedbackFile], a => path.posix.join(...a))
                     exercisePointsString = `${pointsColumnString} = [${pointsSumColumnString}](${feedbackPath})`
                 } else {
                     exercisePointsString = `${pointsColumnString} = ${pointsSumColumnString}`
@@ -424,7 +424,7 @@ const renderExerciseRow = (exercise, requirements = {}, walkingObject = { curren
                 }
             }
             if (exercise.feedbackFile) {
-                const feedbackPath = cleanupUndefinedList([exercise.directory, exercise.feedbackFile], a => path.join(...a))
+                const feedbackPath = cleanupUndefinedList([exercise.directory, exercise.feedbackFile], a => path.posix.join(...a))
                 exercisePointsString = `[${exercisePointsString}](${feedbackPath})`
             } else {
 
