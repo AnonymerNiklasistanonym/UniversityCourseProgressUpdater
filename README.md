@@ -52,6 +52,7 @@ Prerequisites:
 - Run tests: `npm test`
 - Get test coverage: `npm run coverage` (for best visualization open the created `coverage/lcov-report/index.html` file in your browser)
 - Update examples: `npm run examples`
+- Debug code using the examples in [VSCode](https://code.visualstudio.com/): Open the repository as working directory and click `Ctrl` + `Shift` + `D`
 
 ## TODO
 
