@@ -54,6 +54,24 @@ Prerequisites:
 - Update examples: `npm run examples`
 - Debug code using the examples in [VSCode](https://code.visualstudio.com/): Open the repository as working directory and click `Ctrl` + `Shift` + `D`
 
+## Timezones
+
+If you use the date property and want to change the timezone (because it is executed on a server somewhere else or something do the following):
+
+Add `TZ='XYZ'` before running `node` to set the timezone for the process.
+Possible values are for example:
+
+- `UTC` (UTC+00:00)
+- `Europe/Amsterdam` (UTC+05:00 / DST mixes this up)
+- `Europe/Berlin` (UTC+01:00 / DST mixes this up)
+- `America/Washington` (UTC−08:00 / DST mixes this up)
+
+Example for `America/Washington`:
+
+```sh
+TZ='America/Washington' node ./progress/updateProgress.js
+```
+
 ## TODO
 
 - [x] Add examples
