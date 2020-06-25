@@ -14,6 +14,6 @@
 | [2](ex02) | 15 (*theoretical*) + 15 (*programming*) = [30](ex02/feedback.pdf) | Minimum Points: 15 |
 | [3](ex03) | 15 (*theoretical*) + 15 (*programming*) = 30 | Minimum Points: 15 |
 | [4](ex04) | 15 (*theoretical*) + 15 (*programming*) = 30 | Minimum Points: 15 |
-| [5](ex05) | 15 (*theoretical*) + 15 (*programming*) = 30 | Minimum Points: 15 |
+| [5 > Last Exercise](ex05) | 15 (*theoretical*) + 15 (*programming*) = 30 | Minimum Points: 15 |
 
 [//]: # (Progress Course Example 04 end)

@@ -38,10 +38,6 @@ export interface CourseProgressData {
  */
 export interface CourseExercise {
     /**
-     * Optionally a submission date of the exercise (run `node` and then `new Date(new Date().toDateString())` or `new Date(new Date(YEAR, MONTH - 1, DATE).toDateString())`
-     */
-    submissionDate?: string
-    /**
      * Optionally a directory of the exercise
      */
     directory?: string
@@ -49,6 +45,10 @@ export interface CourseExercise {
      * An optional file path (relative to the submission directory) to a file that contains feedback information about all tasks of the exercise (can be left out when not yet known, if never submitted or if not existing)
      */
     feedbackFile?: string
+    /**
+     * An optional name of the exercise
+     */
+    name?: string
     /**
      * Exercise notes
      */
@@ -61,6 +61,10 @@ export interface CourseExercise {
      * Tracks the progress of the submission either as one summary of all tasks or as a list of single tasks
      */
     submission?: CourseExerciseTaskSubmission[] | CourseExerciseTaskSubmissionSummary
+    /**
+     * Optionally a submission date of the exercise (run `node` and then `new Date(new Date().toDateString())` or `new Date(new Date(YEAR, MONTH - 1, DATE).toDateString())`
+     */
+    submissionDate?: string
 }
 /**
  * Represents one task of all tasks of the exercise

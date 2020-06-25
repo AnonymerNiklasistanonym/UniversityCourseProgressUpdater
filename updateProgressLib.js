@@ -348,7 +348,13 @@ const convertDateToHumanReadableDate = (date) => {
  */
 const renderExerciseRow = (exercise, requirements = {}, walkingObject = { currentlyAchievedPoints: 0 }) => {
     // If exercise directory is given link it on the exercise number (= id)
-    let exerciseNameString = exercise.directory ? `[${exercise.number}](${exercise.directory})` : `${exercise.number}`
+    let exerciseNameString = `${exercise.number}`
+    if (exercise.name) {
+        exerciseNameString += ` > ${exercise.name}`
+    }
+    if (exercise.directory) {
+        exerciseNameString = `[${exerciseNameString}](${exercise.directory})`
+    }
     if (exercise.submissionDate) {
         exerciseNameString += ` (${convertDateToHumanReadableDate(new Date(exercise.submissionDate))})`
     }
