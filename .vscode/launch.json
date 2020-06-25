@@ -1,0 +1,41 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Debug an example",
+            "program": "${workspaceFolder}/updateProgress.js",
+            "args": [
+                "CUSTOM_PROGRESS_JSON=${workspaceFolder}/examples/${input:exampleName}.json",
+                "CUSTOM_README=${workspaceFolder}/examples/${input:exampleName}.md"
+            ]
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Debug example (default)",
+            "program": "${workspaceFolder}/updateProgress.js",
+            "args": [
+                "CUSTOM_PROGRESS_JSON=${workspaceFolder}/examples/progress_course_task_list.json",
+                "CUSTOM_README=${workspaceFolder}/examples/progress_course_task_list.md"
+            ]
+        }
+    ],
+    "inputs": [
+        {
+          "type": "pickString",
+          "id": "exampleName",
+          "description": "What example do you want to debug?",
+          "options": [
+            "progress_course_task_list",
+            "progress_course_task_summary",
+            "progress_course_task_mixed",
+            "progress_course_task_list2",
+            "progress_course_task_summary2",
+            "progress_course_task_list3"
+          ],
+          "default": "progress_course_task_list"
+        }
+      ]
+}
