@@ -225,7 +225,8 @@ const renderNewProgressContentHeader = (progressJsonData, tableState) => {
             // Add information in first row of state table
             if (tableStateBody.length === 0) { tableStateBody.push([]) }
             const emojiIndicator = achievedPointsPercentage >= necessaryPointsPercentageFromAllPoints
-                ? ` ${readmeMarkdownEmojis.greenCheck}` : ` ${readmeMarkdownEmojis.redCross}`
+                ? ` ${readmeMarkdownEmojis.greenCheck}`
+                : ` ${readmeMarkdownEmojis.redCross}`
             tableStateBody[0].push(
                 // Add column that tells what the necessary points (percentage) is
                 `${renderFloatingPointNumber(necessaryPoints)}/${allPoints} (${renderPercentage(necessaryPointsPercentageFromAllPoints)}%)`,
@@ -254,7 +255,8 @@ const renderNewProgressContentHeader = (progressJsonData, tableState) => {
             // Add information in first row of state table
             if (tableStateBody.length === 0) { tableStateBody.push([]) }
             const emojiIndicator = validSubmittedSubmissions >= necessarySubmissions
-                ? ` ${readmeMarkdownEmojis.greenCheck}` : ` ${readmeMarkdownEmojis.redCross}`
+                ? ` ${readmeMarkdownEmojis.greenCheck}`
+                : ` ${readmeMarkdownEmojis.redCross}`
             tableStateBody[0].push(
                 // Add column that tells what the necessary submission count (percentage) is
                 `${renderFloatingPointNumber(necessarySubmissions)}/${allSubmissions} (${renderPercentage(necessarySubmissionsPercentage)}%)`,
@@ -440,8 +442,6 @@ const renderExerciseRow = (exercise, requirements = {}, walkingObject = { curren
             if (exercise.feedbackFile) {
                 const feedbackPath = cleanupUndefinedList([exercise.directory, exercise.feedbackFile], a => path.posix.join(...a))
                 exercisePointsString = `[${exercisePointsString}](${feedbackPath})`
-            } else {
-
             }
             if (exercise.submission.notSubmitted) {
                 exercisePointsString = `~${exercisePointsString}~`
