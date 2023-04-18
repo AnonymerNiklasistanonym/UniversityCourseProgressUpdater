@@ -4,9 +4,9 @@
 
 [//]: # (Progress Course Example 04 begin)
 
-| Necessary points | Current points |
-| --- | --- |
-| 75/150 (50%) | 22.50/150 (15%) :x: |
+| Points > 50% |
+| --- |
+| 15%/50% :x: |
 
 | Exercise | Points | Notes |
 | --- | --- | --- |

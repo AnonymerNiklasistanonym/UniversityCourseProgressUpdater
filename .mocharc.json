@@ -1,0 +1,22 @@
+{
+  "bail": true,
+  "check-leaks": true,
+  "colors": true,
+  "exit": true,
+  "full-trace": true,
+  "no-timeout": true,
+  "parallel": true,
+  "recursive": true,
+  "extension": ["ts"],
+  "node-option": ["experimental-specifier-resolution=node", "loader=ts-node/esm"],
+  "require": [
+    "ts-node/register",
+    "test/setup.mts"
+  ],
+  "watch-files": [
+    "package.json",
+    ".mocharc.json",
+    "src/**/*.mts",
+    "tests/**/*.mts"
+  ]
+}

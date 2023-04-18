@@ -4,7 +4,7 @@
 		{
 			"directory": "ex01",
 			"feedbackFile": "feedback.pdf",
-			"number": 1,
+			"name": 1,
 			"submission": [
 				{
 					"achievedPoints": 12.5,
@@ -21,7 +21,7 @@
 		{
 			"directory": "ex02",
 			"feedbackFile": "feedback.pdf",
-			"number": 2,
+			"name": 2,
 			"submission": [
 				{
 					"achievedPoints": 11.5,
@@ -39,7 +39,7 @@
 		},
 		{
 			"directory": "ex03",
-			"number": 3,
+			"name": 3,
 			"submission": [
 				{
 					"name": "theoretical",
@@ -56,7 +56,7 @@
 		{
 			"directory": "ex04",
 			"feedbackFile": "feedback.pdf",
-			"number": 4,
+			"name": 4,
 			"submission": [
 				{
 					"achievedPoints": 15,
@@ -72,7 +72,7 @@
 		},
 		{
 			"directory": "ex05",
-			"number": 5,
+			"name": 5,
 			"submission": {
 				"achievedPoints": 15,
 				"points": 15
@@ -82,8 +82,12 @@
 	"name": "Course Example 03 SS20",
 	"progressName": "Course Example 03",
 	"requirements": {
-		"minimumPointsPercentageAllSubmissions": 0.5,
-		"minimumSubmissions": 4
+		"minimumPointsPercentage": {
+			"allSubmissions": 0.5
+		},
+		"minimumPassedExercises": {
+			"number": 4
+		}
 	},
-	"version": 4
+	"version": 5
 }

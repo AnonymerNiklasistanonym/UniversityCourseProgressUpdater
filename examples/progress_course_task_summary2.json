@@ -4,7 +4,7 @@
 		{
 			"directory": "ex01",
 			"feedbackFile": "feedback.pdf",
-			"number": 1,
+			"name": 1,
 			"submission": {
 				"achievedPoints": 46.5,
 				"points": 50
@@ -14,7 +14,7 @@
 			"directory": "ex02",
 			"feedbackFile": "feedback.pdf",
 			"notes": "Additional notes for exercise 2",
-			"number": 2,
+			"name": 2,
 			"submission": {
 				"achievedPoints": 39,
 				"points": 50
@@ -23,7 +23,7 @@
 		{
 			"directory": "ex03",
 			"feedbackFile": "feedback.pdf",
-			"number": 3,
+			"name": 3,
 			"submission": {
 				"achievedPoints": 50,
 				"points": 50
@@ -32,7 +32,7 @@
 		{
 			"directory": "ex04",
 			"feedbackFile": "feedback.pdf",
-			"number": 4,
+			"name": 4,
 			"submission": {
 				"achievedPoints": 47.5,
 				"points": 50
@@ -40,7 +40,7 @@
 		},
 		{
 			"directory": "ex05",
-			"number": 5,
+			"name": 5,
 			"submission": {
 				"notSubmitted": true,
 				"points": 50
@@ -50,9 +50,13 @@
 	"name": "Course Example 01 SS20",
 	"progressName": "Course Example 01",
 	"requirements": {
-		"minimumPointsPercentageAllSubmissions": 0.5,
-		"minimumPointsPercentagePerSubmission": 0.5,
-		"minimumSubmissions": 4
+		"minimumPointsPercentage": {
+			"perSubmission": 0.5,
+			"allSubmissions": 0.5
+		},
+		"minimumPassedExercises": {
+			"number": 4
+		}
 	},
-	"version": 4
+	"version": 5
 }

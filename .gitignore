@@ -2,3 +2,5 @@ node_modules
 .nyc*
 coverage
 dist
+progress.schema.json
+updateProgress.mjs

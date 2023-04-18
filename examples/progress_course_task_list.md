@@ -4,9 +4,9 @@
 
 [//]: # (Progress Course Example 02 begin)
 
-| Necessary points | Current points | Necessary submissions | Current submissions |
-| --- | --- | --- | --- |
-| 75/150 (50%) | 77.50/150 (51.67%) :heavy_check_mark: | 4/5 (80%) | 4/5 (80%) :heavy_check_mark: |
+| Points > 50% | Passed Exercises > 4 |
+| --- | --- |
+| 51.67%/50% :heavy_check_mark: | 4/4 :heavy_check_mark: |
 
 | Exercise | Points | Notes |
 | --- | --- | --- |
