@@ -19,9 +19,10 @@ Prerequisites:
 2. Create `updateProgress.mjs` (and optionally `progress.schema.json`)
 
    ```sh
+   # Create dist/updateProgress.mjs
    npm run build
    npm run createBundle
-   # Optionally
+   # Optionally create progress.schema.json
    npm run createJsonSchema
    ```
 
@@ -31,70 +32,88 @@ Prerequisites:
    repo
      |_ README.md
      |_ progress
-         |_ progress.json        (create yourself)
-         |_ progress.schema.json (copy from repo dir ./)
-         |_ updateProgress.mjs   (copy from repo dir ./dist/)
+         |_ progress.json
+         |_ progress.schema.json
+         |_ updateProgress.mjs
    ```
 
    Insert in the `README.md` a begin/end comment somewhere:
+
+   [//]: # (Markdown content README.md begin)
 
    ```markdown
    ....
    # Progress title
 
-   [//]: # (Progress ID begin)
+   [//]: # (Progress EXAMPLE_ID begin)
 
-   you progress will be rendered in here
+   | Points >= 50% | Passed Exercises >= 4 |
+   | --- | --- |
+   | 75%/50% :heavy_check_mark: | 1/4 :x: |
 
-   [//]: # (Progress ID end)
+   | Exercise | Points | Notes |
+   | --- | --- | --- |
+   | [1](ex01) (2020.10.06) | 12.5/15 (*theoretical*) + 10/15 (*programming*) = [22.5/30](ex01/feedback.pdf) (75%) |  |
+
+   [//]: # (Progress EXAMPLE_ID end)
 
    ...
    ```
 
+   [//]: # (Markdown content README.md end)
+
    An example `progress.json`: (you can check the [`examples`](./examples/) directory for more examples)
+
+   [//]: # (Markdown content progress.json begin)
 
    ```json
    {
-      "$schema": "./progress.schema.json",
-      "exercises": [
-         {
-            "directory": "ex01",
-            "feedbackFile": "feedback.pdf",
-            "name": 1,
-            "submission": [
-               {
-                  "achievedPoints": 12.5,
-                  "name": "theoretical",
-                  "points": 15
-               },
-               {
-                  "achievedPoints": 10,
-                  "name": "programming",
-                  "points": 15
-               }
-            ],
-            "submissionDate": "2020-09-06T22:00:00.000Z"
-         },
-      ],
-      "name": "Course Example 02 SS20",
-      "progressName": "ID",
-      "requirements": {
-         "minimumPointsPercentage": {
-            "allSubmissions": 0.5
-         },
-         "minimumPassedExercises": {
-            "number": 4
-         }
-      },
-      "version": 5
+       "$schema": "./progress.schema.json",
+       "exercises": [
+           {
+               "directory": "ex01",
+               "feedbackFile": "feedback.pdf",
+               "name": 1,
+               "submission": [
+                   {
+                       "achievedPoints": 12.5,
+                       "name": "theoretical",
+                       "points": 15
+                   },
+                   {
+                       "achievedPoints": 10,
+                       "name": "programming",
+                       "points": 15
+                   }
+               ],
+               "submissionDate": "2020-10-05T22:00:00.000Z"
+           }
+       ],
+       "name": "Course Example 02 SS20",
+       "progressName": "EXAMPLE_ID",
+       "requirements": {
+           "minimumPointsPercentage": {
+               "allSubmissions": 0.5
+           },
+           "minimumPassedExercises": {
+               "number": 4
+           }
+       },
+       "version": 5
    }
    ```
 
+   [//]: # (Markdown content progress.json end)
+
 4. Run the program without any other dependencies:
+
+   [//]: # (Markdown content run updateProgress.mjs begin)
 
    ```sh
    node ./progress/updateProgress.mjs PROGRESS_JSON=progress/progress.json
    ```
+
+   [//]: # (Markdown content run updateProgress.mjs end)
 
 ## Development
 

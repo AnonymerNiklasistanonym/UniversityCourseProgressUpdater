@@ -1,5 +1,5 @@
 export const versionNumberProgramMajor = 3;
-export const versionNumberProgramMinor = 0;
+export const versionNumberProgramMinor = 1;
 
 /** Maximum version of the config that is supported */
 export const versionNumberConfig = 5;

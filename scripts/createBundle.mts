@@ -72,11 +72,8 @@ const filteredImports = [
 
 await fs.writeFile(
   bundleFile,
-  [
-    `${shebang}\n${source}\n`,
-    ...filteredImports,
-    bundleContent,
-    bundleContentMain,
-  ].join("\n")
+  [shebang, source, ...filteredImports, bundleContent, bundleContentMain].join(
+    "\n"
+  )
 );
 console.info(`Wrote bundled files to ${bundleFile}`);

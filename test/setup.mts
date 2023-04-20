@@ -4,6 +4,7 @@
 
 //console.info("test setup file");
 
+/*
 export const mochaHooks = {
   afterAll(): void {
     //console.log("global after all");
@@ -12,3 +13,4 @@ export const mochaHooks = {
     //console.log("global before all");
   },
 };
+*/

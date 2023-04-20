@@ -48,6 +48,9 @@ jobs:
       run: npm run test
     - name: Lint
       run: npm run lint
+    - name: Lint exports
+      run: npm run lint:exports
+      continue-on-error: true
     - name: Build
       run: npm run build
     - name: Lint circular dependencies
@@ -57,7 +60,9 @@ jobs:
     - name: Create bundle
       run: npm run createBundle
     - name: Run other scripts
-      run: npm run runExamples
+      run: |
+        npm run runExamples
+        npm run updateReadme
       continue-on-error: true
     - name: Save updateProgress script
       if: matrix.os == 'ubuntu-latest' && (contains(github.head_ref, 'main') || startsWith(github.ref, 'refs/tags/v'))

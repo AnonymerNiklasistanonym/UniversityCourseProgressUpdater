@@ -3,8 +3,8 @@ import path from "path";
 // Relative imports
 import { cleanupUndefinedList, merge, sum } from "./util.mjs";
 import {
+  convertBooleanToEmoji,
   createMdTable,
-  readmeMarkdownEmojis,
   renderDate,
   renderPercentage,
   TableRowValues,
@@ -16,7 +16,7 @@ import type {
   CourseRequirements,
 } from "./progressTypes.mjs";
 
-export interface ExerciseSubmissionInfo {
+interface ExerciseSubmissionInfo {
   totalPoints: number;
   achievedPoints: number;
   foundSubmission: boolean;
@@ -27,7 +27,7 @@ export interface ExerciseSubmissionInfo {
  * @param exercise The exercise
  * @returns Information about single exercise submission
  */
-export const getExerciseSubmissionInfo = (
+const getExerciseSubmissionInfo = (
   exercise: Readonly<CourseExercise>
 ): ExerciseSubmissionInfo => {
   if (Array.isArray(exercise.submission)) {
@@ -56,12 +56,12 @@ export const getExerciseSubmissionInfo = (
   };
 };
 
-export interface PassedInfoRequirement {
+interface PassedInfoRequirement {
   passed: boolean;
   requirement: string;
   status: string;
 }
-export interface PassedInfo {
+interface PassedInfo {
   passed: boolean;
   requirements: PassedInfoRequirement[];
 }
@@ -72,7 +72,7 @@ export interface PassedInfo {
  * @param courseRequirements Optional requirements to check if passed
  * @returns Was the exercise submission passed
  */
-export const getExercisePassedInfo = (
+const getExercisePassedInfo = (
   submissionPointsExercise: Readonly<ExerciseSubmissionInfo>,
   courseRequirements: Readonly<CourseRequirements> = {}
 ): PassedInfo => {
@@ -127,7 +127,7 @@ export const getExercisePassedInfo = (
  * @param requirements Optional requirements to check if passed
  * @returns Was the exercise submission passed
  */
-export const getCoursePassedInfo = (
+const getCoursePassedInfo = (
   exercises: ReadonlyArray<CourseExercise>,
   requirements: Readonly<CourseRequirements> = {}
 ): PassedInfo => {
@@ -218,35 +218,9 @@ export const getCoursePassedInfo = (
   return { requirements: requirementInfos, passed };
 };
 
-const renderNewProgressContentHeader = (
-  progressJsonData: Readonly<CourseProgressData>
-): string | undefined => {
-  // Check for global requirements
-  const coursePassInfo = getCoursePassedInfo(
-    progressJsonData.exercises,
-    progressJsonData.requirements
-  );
-  if (coursePassInfo.requirements.length > 0) {
-    return createMdTable(
-      coursePassInfo.requirements.map((a) => a.requirement),
-      [
-        coursePassInfo.requirements.map(
-          (a) =>
-            `${a.status} ${
-              a.passed
-                ? readmeMarkdownEmojis.greenCheck
-                : readmeMarkdownEmojis.redCross
-            }`
-        ),
-      ]
-    );
-  }
-};
-
 const renderExerciseRow = (
   exercise: Readonly<CourseExercise>,
-  requirements: Readonly<CourseRequirements> = {},
-  walkingObject = { currentlyAchievedPoints: 0 }
+  requirements: Readonly<CourseRequirements> = {}
 ): TableRowValues => {
   // If exercise directory is given link it on the exercise number (= id)
   let exerciseNameString = `${exercise.name}`;
@@ -260,7 +234,6 @@ const renderExerciseRow = (
   let notesString = "";
   if (exercise.submission) {
     const pointsInfo = getExerciseSubmissionInfo(exercise);
-    walkingObject.currentlyAchievedPoints += pointsInfo.achievedPoints;
     if (Array.isArray(exercise.submission)) {
       if (exercise.submission.length > 0) {
         let oneTaskWasSubmitted = false;
@@ -369,11 +342,9 @@ const renderExerciseRow = (
     notesString += getExercisePassedInfo(pointsInfo, requirements)
       .requirements.map(
         (requirementInfo) =>
-          `${requirementInfo.requirement} ${
+          `${requirementInfo.requirement} ${convertBooleanToEmoji(
             requirementInfo.passed
-              ? readmeMarkdownEmojis.greenCheck
-              : readmeMarkdownEmojis.redCross
-          }`
+          )}`
       )
       .join(", ");
     // TODO Predictions in external method (how many points at least, are there already enough points accumulated, ...)
@@ -388,31 +359,38 @@ const renderExerciseRow = (
   return [exerciseNameString, exercisePointsString, notesString];
 };
 
-const renderNewProgressContentBody = (
-  progressJsonData: Readonly<CourseProgressData>
-): string => {
-  const walkingObject = { currentlyAchievedPoints: 0 };
-  return createMdTable(
-    ["Exercise", "Points", "Notes"],
-    merge(progressJsonData.exercises, (exercise) =>
-      renderExerciseRow(exercise, progressJsonData.requirements, walkingObject)
-    )
-  );
-};
-
 export const renderNewProgressContent = (
   progressJsonData: Readonly<CourseProgressData>
 ) => {
   const newProgressContent: string[] = [];
 
   // Render the summary header (progress info tables)
-  const contentHeader = renderNewProgressContentHeader(progressJsonData);
-  if (contentHeader) {
-    newProgressContent.push(contentHeader);
+  const coursePassInfo = getCoursePassedInfo(
+    progressJsonData.exercises,
+    progressJsonData.requirements
+  );
+  if (coursePassInfo.requirements.length > 0) {
+    newProgressContent.push(
+      createMdTable(
+        coursePassInfo.requirements.map((a) => a.requirement),
+        [
+          coursePassInfo.requirements.map(
+            (a) => `${a.status} ${convertBooleanToEmoji(a.passed)}`
+          ),
+        ]
+      )
+    );
   }
 
   // Render main table that lists the submissions
-  newProgressContent.push(renderNewProgressContentBody(progressJsonData));
+  newProgressContent.push(
+    createMdTable(
+      ["Exercise", "Points", "Notes"],
+      merge(progressJsonData.exercises, (exercise) =>
+        renderExerciseRow(exercise, progressJsonData.requirements)
+      )
+    )
+  );
 
   return newProgressContent.join("\n\n");
 };

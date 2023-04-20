@@ -21,7 +21,7 @@ export const cliArgIds = {
   customProgressJson: "PROGRESS_JSON=",
 };
 
-export const help = () => {
+const help = () => {
   console.log("updateProgress [OPTIONS]\n");
   console.log(
     "Visualizes the data of a JSON schema conform JSON file in the README file"

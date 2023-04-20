@@ -4,7 +4,7 @@
 
 [//]: # (Progress Course Example 03 begin)
 
-| Points > 50% | Passed Exercises > 4 |
+| Points >= 50% | Passed Exercises >= 4 |
 | --- | --- |
 | 53.33%/50% :heavy_check_mark: | 4/4 :heavy_check_mark: |
 

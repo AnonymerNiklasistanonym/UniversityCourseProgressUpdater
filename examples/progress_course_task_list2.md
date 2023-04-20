@@ -4,7 +4,7 @@
 
 [//]: # (Progress Course Example 04 begin)
 
-| Points > 50% |
+| Points >= 50% |
 | --- |
 | 15%/50% :x: |
 

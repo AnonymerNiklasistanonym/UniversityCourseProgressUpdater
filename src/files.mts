@@ -3,25 +3,26 @@ import { promises as fs } from "fs";
 // Type imports
 import type { CourseProgressData } from "./progressTypes.mjs";
 
-/**
- * @param filePath The file path of the progress.json file
- * @returns Parsed course progress
- */
-export const getProgressJsonData = async (
-  filePath: string
-): Promise<CourseProgressData> => {
+export const readFileToString = async (filePath: string): Promise<string> => {
   const content = await fs.readFile(filePath);
-  return JSON.parse(content.toString());
+  return content.toString();
 };
 
 /**
- * @param filePath The file path of the README.md
+ * @param filePath The file path of the JSON data file
+ * @returns Parsed course progress
+ */
+export const getCourseProgressData = async (
+  filePath: string
+): Promise<CourseProgressData> => JSON.parse(await readFileToString(filePath));
+
+/**
+ * @param filePath The file path of the README text file
  * @param updateContent Create new content
  */
 export const updateReadme = async (
   filePath: string,
   updateContent: (content: string) => string
 ): Promise<void> => {
-  const readmeContent = await fs.readFile(filePath);
-  await fs.writeFile(filePath, updateContent(readmeContent.toString()));
+  await fs.writeFile(filePath, updateContent(await readFileToString(filePath)));
 };

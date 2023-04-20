@@ -3,16 +3,20 @@
 // Source: https://github.com/AnonymerNiklasistanonym/UniversityCourseProgressUpdater
 
 // Relative imports
+import {
+  addMarkdownIndent,
+  readmeCommentIndicators,
+  updateReadmeCommentContent,
+} from "./markdown.mjs";
 import { cutoffVersion, versionNumberConfig } from "./info.mjs";
-import { getProgressJsonData, updateReadme } from "./files.mjs";
-import { readmeProgressIndicators, updateReadmeContent } from "./markdown.mjs";
+import { getCourseProgressData, updateReadme } from "./files.mjs";
 import { parseCliArgs } from "./cli.mjs";
 import { renderNewProgressContent } from "./logic.mjs";
 
 // Main method (async wrapper)
 try {
   const cliArgs = parseCliArgs(process.argv.slice(2));
-  const progressJsonData = await getProgressJsonData(
+  const progressJsonData = await getCourseProgressData(
     cliArgs.progressJsonFilePath
   );
   if (progressJsonData.version > versionNumberConfig) {
@@ -29,10 +33,14 @@ try {
     );
   }
   await updateReadme(cliArgs.readmeFilePath, (content) =>
-    updateReadmeContent(
+    updateReadmeCommentContent(
       content,
-      readmeProgressIndicators(progressJsonData.progressName),
-      renderNewProgressContent(progressJsonData)
+      readmeCommentIndicators(progressJsonData.progressName),
+      (indent) =>
+        addMarkdownIndent(
+          renderNewProgressContent(progressJsonData).split("\n"),
+          indent
+        ).join("\n")
     )
   );
   process.exit(0);

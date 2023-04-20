@@ -29,7 +29,7 @@ export interface CourseProgressData {
    */
   version: number;
 }
-export interface CourseExerciseInfo {
+interface CourseExerciseInfo {
   /**
    * Optionally a specific directory file path of the exercise/task
    */
@@ -43,7 +43,7 @@ export interface CourseExerciseInfo {
    */
   notes?: string;
 }
-export interface CourseExerciseFeedback {
+interface CourseExerciseFeedback {
   /**
    * Optionally a file path (relative to the exercise/task directory) to feedback information about the submission
    */
@@ -67,7 +67,7 @@ export interface CourseExercise
 /**
  * Represents a submission (of all tasks) of the exercise
  */
-export interface CourseExerciseSubmission {
+interface CourseExerciseSubmission {
   /**
    * An optional information of the achieved points of the submission
    */
@@ -85,13 +85,13 @@ export interface CourseExerciseSubmission {
 /**
  * Represents one task of all tasks of the exercise
  */
-export type CourseExerciseTaskSubmission = CourseExerciseSubmission &
+type CourseExerciseTaskSubmission = CourseExerciseSubmission &
   CourseExerciseFeedback &
   CourseExerciseInfo;
 /**
  * Predictions that should be enabled for the visualization
  */
-export interface CoursePredictions {
+interface CoursePredictions {
   /**
    * Shows the points that need to be achieved to pass the course (if still possible)
    */
@@ -101,7 +101,7 @@ export interface CoursePredictions {
 /**
  * Requirement: Check if a minimum number of points was achieved
  */
-export interface CourseRequirementsMinimumPoints {
+interface CourseRequirementsMinimumPoints {
   /**
    * Checks:
    * Was a minimum number of points was achieved for each submission
@@ -118,7 +118,7 @@ export interface CourseRequirementsMinimumPoints {
 /**
  * Requirement: Check if a minimum percentage of points was achieved
  */
-export interface CourseRequirementsMinimumPointsPercentage {
+interface CourseRequirementsMinimumPointsPercentage {
   /**
    * If set checks:
    * Was a minimum percentage of points achieved for each submission
@@ -137,7 +137,7 @@ export interface CourseRequirementsMinimumPointsPercentage {
 /**
  * Requirement: Check if a minimum count of passed exercises was achieved
  */
-export interface CourseRequirementsMinimumPassedExercises {
+interface CourseRequirementsMinimumPassedExercises {
   /**
    * If set checks if a given minimum submission count was achieved
    * @minimum 0

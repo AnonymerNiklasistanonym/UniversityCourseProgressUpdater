@@ -1,26 +1,35 @@
 #!/usr/bin/env node
 
-export interface ReadmeProgressIndicators {
+interface ReadmeCommentIndicators {
   begin: string;
   end: string;
 }
 
 /**
- * @param id Id of progress comments
- * @returns Begin and end comment in README using the provided progress ID
+ * @param id ID of markdown comments
+ * @param type Type ID of markdown comments
+ * @returns Begin and end comment in README
  */
-export const readmeProgressIndicators = (
-  id: string
-): ReadmeProgressIndicators => ({
-  begin: `[//]: # (Progress ${id} begin)`,
-  end: `[//]: # (Progress ${id} end)`,
+export const readmeCommentIndicators = (
+  id: string,
+  type = "Progress"
+): ReadmeCommentIndicators => ({
+  begin: `[//]: # (${type} ${id} begin)`,
+  end: `[//]: # (${type} ${id} end)`,
 });
 
-export const readmeMarkdownEmojis = {
+const readmeMarkdownEmojis = {
   greenCheck: ":heavy_check_mark:",
   redCross: ":x:",
   yellowWarning: ":warning:",
 } as const;
+
+export const convertBooleanToEmoji = (value?: boolean) =>
+  value === undefined
+    ? readmeMarkdownEmojis.yellowWarning
+    : value
+    ? readmeMarkdownEmojis.greenCheck
+    : readmeMarkdownEmojis.redCross;
 
 export type TableRowValues = string[];
 
@@ -54,41 +63,41 @@ export const renderDate = (date: Readonly<Date>) =>
     "0" + date.getDate()
   ).slice(-2)}`;
 
+export const addMarkdownIndent = (lines: ReadonlyArray<string>, indent = "") =>
+  lines.map((a) => (a.length > 0 ? `${indent}${a}` : a));
+
 /**
- * @param readmeContent The content of the README file
- * @param progressIndicators The progress begin and start indicators
- * @param progressContent The new progress string that should be displayed in the README file
+ * @param content The content of the README file
+ * @param commentIndicators The comment begin and start indicators
+ * @param generateNewContent Generate the new content between those comments
  * @returns Updated README content
  */
-export const updateReadmeContent = (
-  readmeContent: string,
-  progressIndicators: Readonly<ReadmeProgressIndicators>,
-  progressContent: string
+export const updateReadmeCommentContent = (
+  content: string,
+  commentIndicators: Readonly<ReadmeCommentIndicators>,
+  generateNewContent: (indent: string) => string
 ) => {
-  const readmeContentSplitAtIndicatorBegin = readmeContent.split(
-    progressIndicators.begin
+  const splitAtBegin = content.split(commentIndicators.begin);
+  if (splitAtBegin.length !== 2) {
+    throw Error(
+      `README content split at '${commentIndicators.begin}' didn't match exactly once (${splitAtBegin.length})`
+    );
+  }
+  const indentation = splitAtBegin[0].split("\n").slice(-1)[0];
+  const splitAtEnd = splitAtBegin[1].split(commentIndicators.end);
+  if (splitAtEnd.length !== 2) {
+    throw Error(
+      `README content split at '${commentIndicators.end}' didn't match exactly once (${splitAtEnd.length})`
+    );
+  }
+  return (
+    splitAtBegin[0] +
+    commentIndicators.begin +
+    "\n\n" +
+    generateNewContent(indentation) +
+    "\n\n" +
+    indentation +
+    commentIndicators.end +
+    splitAtEnd[1]
   );
-  if (readmeContentSplitAtIndicatorBegin.length !== 2) {
-    throw Error(
-      `README content split at '${progressIndicators.begin}' didn't match or more than once`
-    );
-  }
-  const readmeBeforeProgress = readmeContentSplitAtIndicatorBegin[0];
-  const readmeContentSplitAtIndicatorEnd =
-    readmeContentSplitAtIndicatorBegin[1].split(progressIndicators.end);
-  if (readmeContentSplitAtIndicatorEnd.length !== 2) {
-    throw Error(
-      `README content split at '${progressIndicators.end}' didn't match or more than once`
-    );
-  }
-  const readmeAfterProgress = readmeContentSplitAtIndicatorEnd[1];
-  const newReadmeContent =
-    readmeBeforeProgress +
-    progressIndicators.begin +
-    "\n\n" +
-    progressContent +
-    "\n\n" +
-    progressIndicators.end +
-    readmeAfterProgress;
-  return newReadmeContent;
 };

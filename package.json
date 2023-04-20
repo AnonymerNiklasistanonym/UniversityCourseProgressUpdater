@@ -1,6 +1,6 @@
 {
   "name": "university-course-progress-updater",
-  "version": "3.0.5",
+  "version": "3.1.5",
   "description": "Updates a README.md file on execution with a visualization of the latest progress state",
   "homepage": "https://github.com/AnonymerNiklasistanonym/UniversityCourseProgressUpdater#readme",
   "bugs": {
@@ -19,12 +19,14 @@
     "runExamples": "ts-node  --project tsconfig.json --esm scripts/runExamples.mts",
     "lint": "eslint --ext .js,.mts src scripts test",
     "lint:circular": "madge --circular dist/main.mjs",
+    "lint:exports": "ts-unused-exports tsconfig.scripts.json --showLineNumber",
     "lint:fix": "eslint --fix --ext .js,.mts src scripts test",
     "start": "node updateProgress.js",
     "test": "mocha -- \"test/**/*.test.mts\"",
     "prebuild": "rimraf dist",
     "createBundle": "ts-node --project tsconfig.json --esm scripts/createBundle.mts",
-    "createJsonSchema": "ts-node --project tsconfig.json --esm scripts/createJsonSchema.mts"
+    "createJsonSchema": "ts-node --project tsconfig.json --esm scripts/createJsonSchema.mts",
+    "updateReadme": "ts-node --project tsconfig.json --esm scripts/updateReadme.mts"
   },
   "devDependencies": {
     "@types/mocha": "^10.0.1",
@@ -43,6 +45,7 @@
     "sinon": "^15.0.3",
     "ts-loader": "^9.4.2",
     "ts-node": "^10.9.1",
+    "ts-unused-exports": "^9.0.4",
     "typescript": "^5.0.4",
     "typescript-json-schema": "^0.56.0"
   }

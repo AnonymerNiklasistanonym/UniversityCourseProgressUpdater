@@ -25,9 +25,8 @@ export const merge = <
  * @returns True if not undefined.
  */
 // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-constraint
-export const notUndefined = <T extends unknown>(
-  value?: Readonly<T>
-): value is T => value !== undefined;
+const notUndefined = <T extends unknown>(value?: Readonly<T>): value is T =>
+  value !== undefined;
 
 /**
  * Help cleaning up a list with undefined values

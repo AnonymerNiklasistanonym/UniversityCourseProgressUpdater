@@ -16,7 +16,7 @@ import {
 } from "../src/cli.mjs";
 import {
   createMdTableRow,
-  readmeProgressIndicators,
+  readmeCommentIndicators,
   renderFloatingPointNumber,
   renderPercentage,
 } from "../src/markdown.mjs";
@@ -26,7 +26,7 @@ import {
 //  versionNumberProgramMinor,
 //} from "../src/info.mjs";
 import { cleanupUndefinedList } from "../src/util.mjs";
-import { getProgressJsonData } from "../src/files.mjs";
+import { getCourseProgressData } from "../src/files.mjs";
 // Type imports
 import type { CliArgs } from "../src/cli.mjs";
 
@@ -77,11 +77,11 @@ describe("Helper functions", () => {
 
   describe("readmeProgressIndicators()", () => {
     it("Correct creation of progress indicators for markdown readme document", () => {
-      assert.deepEqual(readmeProgressIndicators("Example"), {
+      assert.deepEqual(readmeCommentIndicators("Example"), {
         begin: "[//]: # (Progress Example begin)",
         end: "[//]: # (Progress Example end)",
       });
-      assert.deepEqual(readmeProgressIndicators("Example 02"), {
+      assert.deepEqual(readmeCommentIndicators("Example 02"), {
         begin: "[//]: # (Progress Example 02 begin)",
         end: "[//]: # (Progress Example 02 end)",
       });
@@ -129,7 +129,7 @@ describe("File system functions", () => {
   describe("getProgressJsonData()", () => {
     it("Successful loading of example progress data", async () => {
       assert(
-        (await getProgressJsonData(
+        (await getCourseProgressData(
           path.join(
             __dirname,
             "..",
@@ -139,7 +139,7 @@ describe("File system functions", () => {
         )) !== undefined
       );
       assert(
-        (await getProgressJsonData(
+        (await getCourseProgressData(
           path.join(
             __dirname,
             "..",
