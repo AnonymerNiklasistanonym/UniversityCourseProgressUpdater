@@ -73,6 +73,7 @@ const updateReadmeComments: UpdateReadmeComment[] = [
         [
           "```markdown",
           "....",
+          "",
           "# Progress title",
           "",
           `${courseProgressCommentIndicators.begin}`,

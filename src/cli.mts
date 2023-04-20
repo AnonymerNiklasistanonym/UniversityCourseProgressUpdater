@@ -1,7 +1,4 @@
-#!/usr/bin/env node
 /* eslint-disable no-console */
-
-// Source: https://github.com/AnonymerNiklasistanonym/UniversityCourseProgressUpdater
 
 // Package imports
 import path from "path";
@@ -19,7 +16,7 @@ export const defaultProgressPath = path.join(currentDir, "progress.json");
 export const cliArgIds = {
   customReadme: "README=",
   customProgressJson: "PROGRESS_JSON=",
-};
+} as const;
 
 const help = () => {
   console.log("updateProgress [OPTIONS]\n");
@@ -47,18 +44,12 @@ const help = () => {
   );
 };
 
-const version = () => {
-  console.log(
-    `${versionNumberProgramMajor}.${versionNumberProgramMinor}.${versionNumberConfig}`
-  );
-};
-
 export interface CliArgs {
   readmeFilePath: string;
   progressJsonFilePath: string;
 }
 
-export const parseCliArgs = (args: string[]): CliArgs => {
+export const parseCliArgs = (args: ReadonlyArray<string>): CliArgs => {
   const cliArgs: CliArgs = {
     readmeFilePath: defaultReadmePath,
     progressJsonFilePath: defaultProgressPath,
@@ -74,7 +65,9 @@ export const parseCliArgs = (args: string[]): CliArgs => {
       help();
       process.exit(0);
     } else if (arg === "--version") {
-      version();
+      console.log(
+        `${versionNumberProgramMajor}.${versionNumberProgramMinor}.${versionNumberConfig}`
+      );
       process.exit(0);
     } else {
       throw Error(`Unsupported argument '${arg}'!`);

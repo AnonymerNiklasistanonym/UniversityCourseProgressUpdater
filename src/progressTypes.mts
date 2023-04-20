@@ -85,7 +85,7 @@ interface CourseExerciseSubmission {
 /**
  * Represents one task of all tasks of the exercise
  */
-type CourseExerciseTaskSubmission = CourseExerciseSubmission &
+export type CourseExerciseTaskSubmission = CourseExerciseSubmission &
   CourseExerciseFeedback &
   CourseExerciseInfo;
 /**
@@ -150,6 +150,20 @@ interface CourseRequirementsMinimumPassedExercises {
    * @minimum 0
    */
   percentage?: number;
+  /**
+   * If set checks:
+   * A submission is only passed when this minimum amount of points was achieved
+   * @minimum 0
+   * @TJS-type integer
+   */
+  minimumPointsForPass?: number;
+  /**
+   * If set checks:
+   * A submission is only passed when this minimum percentage of points was achieved
+   * @maximum 1
+   * @minimum 0
+   */
+  minimumPointsPercentageForPass?: number;
 }
 /**
  * Requirements to pass course

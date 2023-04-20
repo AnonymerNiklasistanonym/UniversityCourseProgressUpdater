@@ -1,6 +1,6 @@
 {
   "name": "university-course-progress-updater",
-  "version": "3.1.5",
+  "version": "3.2.5",
   "description": "Updates a README.md file on execution with a visualization of the latest progress state",
   "homepage": "https://github.com/AnonymerNiklasistanonym/UniversityCourseProgressUpdater#readme",
   "bugs": {

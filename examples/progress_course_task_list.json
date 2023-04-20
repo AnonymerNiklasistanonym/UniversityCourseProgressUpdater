@@ -66,8 +66,8 @@
 					"points": 15
 				},
 				{
-					"achievedPoints": 5,
 					"name": "programming",
+					"notSubmitted": true,
 					"points": 15
 				}
 			],
@@ -89,6 +89,20 @@
 				}
 			],
 			"submissionDate": "2020-10-03T22:00:00.000Z"
+		},
+		{
+			"name": 6,
+			"submission": [
+				{
+					"name": "theoretical",
+					"points": 15
+				},
+				{
+					"name": "programming",
+					"points": 15
+				}
+			],
+			"submissionDate": "2020-10-10T22:00:00.000Z"
 		}
 	],
 	"name": "Course Example 02 SS20",

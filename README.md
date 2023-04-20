@@ -43,6 +43,7 @@ Prerequisites:
 
    ```markdown
    ....
+
    # Progress title
 
    [//]: # (Progress EXAMPLE_ID begin)

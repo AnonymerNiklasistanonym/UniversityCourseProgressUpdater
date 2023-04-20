@@ -1,7 +1,3 @@
-#!/usr/bin/env node
-
-// Source: https://github.com/AnonymerNiklasistanonym/UniversityCourseProgressUpdater
-
 // Relative imports
 import {
   addMarkdownIndent,

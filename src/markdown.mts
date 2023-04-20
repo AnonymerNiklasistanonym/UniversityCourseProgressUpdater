@@ -1,5 +1,3 @@
-#!/usr/bin/env node
-
 interface ReadmeCommentIndicators {
   begin: string;
   end: string;
@@ -83,7 +81,7 @@ export const updateReadmeCommentContent = (
       `README content split at '${commentIndicators.begin}' didn't match exactly once (${splitAtBegin.length})`
     );
   }
-  const indentation = splitAtBegin[0].split("\n").slice(-1)[0];
+  const indent = splitAtBegin[0].split("\n").slice(-1)[0];
   const splitAtEnd = splitAtBegin[1].split(commentIndicators.end);
   if (splitAtEnd.length !== 2) {
     throw Error(
@@ -94,9 +92,9 @@ export const updateReadmeCommentContent = (
     splitAtBegin[0] +
     commentIndicators.begin +
     "\n\n" +
-    generateNewContent(indentation) +
+    generateNewContent(indent) +
     "\n\n" +
-    indentation +
+    indent +
     commentIndicators.end +
     splitAtEnd[1]
   );
