@@ -3,7 +3,7 @@ import { promises as fs } from "fs";
 // Type imports
 import type { CourseProgressData } from "./progressTypes.mjs";
 
-export const readFileToString = async (filePath: string): Promise<string> => {
+const readFileToString = async (filePath: string): Promise<string> => {
   const content = await fs.readFile(filePath);
   return content.toString();
 };
