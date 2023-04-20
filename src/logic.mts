@@ -91,7 +91,7 @@ export const getExercisePassedInfo = (
       submissionPointsExercise.achievedPoints >=
       requirements.minimumPoints.perSubmission;
     requirementInfos.push({
-      requirement: `> ${requirements.minimumPoints.perSubmission}`,
+      requirement: `>= ${requirements.minimumPoints.perSubmission}`,
       status: `${submissionPointsExercise.achievedPoints}/${requirements.minimumPoints.perSubmission}`,
       passed: passedMinimumPoints,
     });
@@ -106,7 +106,7 @@ export const getExercisePassedInfo = (
         submissionPointsExercise.totalPoints >=
       requirements.minimumPointsPercentage.perSubmission;
     requirementInfos.push({
-      requirement: `> ${renderPercentage(
+      requirement: `>= ${renderPercentage(
         requirements.minimumPointsPercentage.perSubmission
       )}%`,
       status: `${renderPercentage(
@@ -153,7 +153,7 @@ export const getCoursePassedInfo = (
     const passedMinimumPoints =
       achievedPoints >= requirements.minimumPoints.allSubmissions;
     requirementInfos.push({
-      requirement: `Points > ${requirements.minimumPoints.allSubmissions}`,
+      requirement: `Points >= ${requirements.minimumPoints.allSubmissions}`,
       status: `${achievedPoints}/${requirements.minimumPoints.allSubmissions}`,
       passed: passedMinimumPoints,
     });
@@ -167,7 +167,7 @@ export const getCoursePassedInfo = (
       achievedPoints / totalPoints >=
       requirements.minimumPointsPercentage.allSubmissions;
     requirementInfos.push({
-      requirement: `Points > ${renderPercentage(
+      requirement: `Points >= ${renderPercentage(
         requirements.minimumPointsPercentage.allSubmissions
       )}%`,
       status: `${renderPercentage(
@@ -192,7 +192,7 @@ export const getCoursePassedInfo = (
     const passedMinimumCount =
       achievedSubmissions >= requirements.minimumPassedExercises.number;
     requirementInfos.push({
-      requirement: `Passed Exercises > ${requirements.minimumPassedExercises.number}`,
+      requirement: `Passed Exercises >= ${requirements.minimumPassedExercises.number}`,
       status: `${achievedSubmissions}/${requirements.minimumPassedExercises.number}`,
       passed: passedMinimumCount,
     });
@@ -206,7 +206,7 @@ export const getCoursePassedInfo = (
       achievedSubmissions / totalSubmissions >=
       requirements.minimumPassedExercises.percentage;
     requirementInfos.push({
-      requirement: `Passed Exercises > ${renderPercentage(
+      requirement: `Passed Exercises >= ${renderPercentage(
         requirements.minimumPassedExercises.percentage
       )}%`,
       status: `${renderPercentage(

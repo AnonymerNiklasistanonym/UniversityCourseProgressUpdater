@@ -19,20 +19,21 @@ Prerequisites:
 2. Create `updateProgress.mjs` (and optionally `progress.schema.json`)
 
    ```sh
-   npm run dist
+   npm run build
+   npm run createBundle
    # Optionally
    npm run createJsonSchema
    ```
 
-3. Create for example the following file structure (use the created files from the `dist` directory):
+3. Create for example the following file structure:
 
    ```text
    repo
      |_ README.md
      |_ progress
-         |_ progress.json
-         |_ progress.schema.json
-         |_ updateProgress.mjs
+         |_ progress.json        (create yourself)
+         |_ progress.schema.json (copy from repo dir ./)
+         |_ updateProgress.mjs   (copy from repo dir ./dist/)
    ```
 
    Insert in the `README.md` a begin/end comment somewhere:
@@ -50,7 +51,7 @@ Prerequisites:
    ...
    ```
 
-   An example `progress.json`:
+   An example `progress.json`: (you can check the [`examples`](./examples/) directory for more examples)
 
    ```json
    {
@@ -117,19 +118,19 @@ Possible values are for example:
 Example for `America/Washington`:
 
 ```sh
-TZ='America/Washington' node ./progress/updateProgress.js
+TZ='America/Washington' node ./progress/updateProgress.mjs
 ```
 
 ## TODO
 
 - [x] Add examples
-  - [ ] More examples
-- [x] Add tests to verify its actually correct
+  - [ ] More/Better examples
+  - [ ] Automate example generation and README content so it's never wrong or outdated
+- [ ] Add tests to verify its actually correct
   - [ ] More test coverage (80% would be nice)
 - [ ] Add more options
-  - [ ] Option for minimum points/percentage of points per submission (this is done through an additional column between `Exercise` and `Points` called `Necessary Points` and works the same as the total points over all submissions part)
-  - [ ] Option for multiple exercises where each exercise can have max and achieved points and it's own feedback which could for example be rendered like "5/10 + 12/12 = 17/22 (XY%)"
+  - [x] Option for minimum points/percentage of points per submission
+  - [x] Option for multiple subtasks of a single exercise
   - [x] Option to declare exercise as not submitted
-    - [ ] Needs to be tested
-- [ ] Add default `progress.json` in which some default options are enabled
-- [ ] Add predictions (very complex but would be cool)
+  - [ ] Add predictions (very complex but would be cool)
+  - [ ] Add more requirements and validate the existing ones
