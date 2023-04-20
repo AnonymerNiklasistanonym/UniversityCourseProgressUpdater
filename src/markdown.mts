@@ -6,7 +6,8 @@ export interface ReadmeProgressIndicators {
 }
 
 /**
- * @param id Id of progress begin/end
+ * @param id Id of progress comments
+ * @returns Begin and end comment in README using the provided progress ID
  */
 export const readmeProgressIndicators = (
   id: string
@@ -19,7 +20,7 @@ export const readmeMarkdownEmojis = {
   greenCheck: ":heavy_check_mark:",
   redCross: ":x:",
   yellowWarning: ":warning:",
-};
+} as const;
 
 export type TableRowValues = string[];
 
@@ -27,8 +28,9 @@ export type TableRowValues = string[];
  * @param tableRowValues Table row data
  * @returns Table row data string
  */
-export const createMdTableRow = (tableRowValues: TableRowValues): string =>
-  `| ${tableRowValues.join(" | ")} |`;
+export const createMdTableRow = (
+  tableRowValues: Readonly<TableRowValues>
+): string => `| ${tableRowValues.join(" | ")} |`;
 
 /**
  * @param header Table row header

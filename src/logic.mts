@@ -23,9 +23,9 @@ export interface ExerciseSubmissionInfo {
 }
 
 /**
- * Get info about exercise submission
+ * Get info about the exercise submission
  * @param exercise The exercise
- * @returns Count information about single exercise
+ * @returns Information about single exercise submission
  */
 export const getExerciseSubmissionInfo = (
   exercise: Readonly<CourseExercise>
@@ -63,57 +63,54 @@ export interface PassedInfoRequirement {
 }
 export interface PassedInfo {
   passed: boolean;
-  requirementInfos: PassedInfoRequirement[];
+  requirements: PassedInfoRequirement[];
 }
 
 /**
  * Check if a exercise submission was passed
  * @param submissionPointsExercise The exercise
- * @param requirements Optional requirements to check if passed
+ * @param courseRequirements Optional requirements to check if passed
  * @returns Was the exercise submission passed
  */
 export const getExercisePassedInfo = (
   submissionPointsExercise: Readonly<ExerciseSubmissionInfo>,
-  requirements: Readonly<CourseRequirements> = {}
+  courseRequirements: Readonly<CourseRequirements> = {}
 ): PassedInfo => {
-  const requirementInfos: PassedInfoRequirement[] = [];
+  const requirements: PassedInfoRequirement[] = [];
   if (!submissionPointsExercise.foundSubmission) {
-    return {
-      requirementInfos,
-      passed: false,
-    };
+    return { passed: false, requirements };
   }
   let passed = true;
   // Check if achieved points fit the requirements
-  if (requirements.minimumPoints?.perSubmission !== undefined) {
+  if (courseRequirements.minimumPoints?.perSubmission !== undefined) {
     // Minimum points per submission is achieved?
     const passedMinimumPoints =
       submissionPointsExercise.achievedPoints >=
-      requirements.minimumPoints.perSubmission;
-    requirementInfos.push({
-      requirement: `>= ${requirements.minimumPoints.perSubmission}`,
-      status: `${submissionPointsExercise.achievedPoints}/${requirements.minimumPoints.perSubmission}`,
+      courseRequirements.minimumPoints.perSubmission;
+    requirements.push({
+      requirement: `>= ${courseRequirements.minimumPoints.perSubmission}`,
+      status: `${submissionPointsExercise.achievedPoints}/${courseRequirements.minimumPoints.perSubmission}`,
       passed: passedMinimumPoints,
     });
     if (passed) {
       passed = passedMinimumPoints;
     }
   }
-  if (requirements.minimumPointsPercentage?.perSubmission !== undefined) {
+  if (courseRequirements.minimumPointsPercentage?.perSubmission !== undefined) {
     // Minimum percentage per submission is achieved?
     const passedMinimumPointsPercentage =
       submissionPointsExercise.achievedPoints /
         submissionPointsExercise.totalPoints >=
-      requirements.minimumPointsPercentage.perSubmission;
-    requirementInfos.push({
+      courseRequirements.minimumPointsPercentage.perSubmission;
+    requirements.push({
       requirement: `>= ${renderPercentage(
-        requirements.minimumPointsPercentage.perSubmission
+        courseRequirements.minimumPointsPercentage.perSubmission
       )}%`,
       status: `${renderPercentage(
         submissionPointsExercise.achievedPoints /
           submissionPointsExercise.totalPoints
       )}%/${renderPercentage(
-        requirements.minimumPointsPercentage.perSubmission
+        courseRequirements.minimumPointsPercentage.perSubmission
       )}%`,
       passed: passedMinimumPointsPercentage,
     });
@@ -121,7 +118,7 @@ export const getExercisePassedInfo = (
       passed = passedMinimumPointsPercentage;
     }
   }
-  return { requirementInfos, passed };
+  return { requirements, passed };
 };
 
 /**
@@ -218,7 +215,7 @@ export const getCoursePassedInfo = (
       passed = passedMinimumCountPercentage;
     }
   }
-  return { requirementInfos, passed };
+  return { requirements: requirementInfos, passed };
 };
 
 const renderNewProgressContentHeader = (
@@ -229,11 +226,11 @@ const renderNewProgressContentHeader = (
     progressJsonData.exercises,
     progressJsonData.requirements
   );
-  if (coursePassInfo.requirementInfos.length > 0) {
+  if (coursePassInfo.requirements.length > 0) {
     return createMdTable(
-      coursePassInfo.requirementInfos.map((a) => a.requirement),
+      coursePassInfo.requirements.map((a) => a.requirement),
       [
-        coursePassInfo.requirementInfos.map(
+        coursePassInfo.requirements.map(
           (a) =>
             `${a.status} ${
               a.passed
@@ -370,7 +367,7 @@ const renderExerciseRow = (
       exercisePointsString += exercisePointsPercentageString;
     }
     notesString += getExercisePassedInfo(pointsInfo, requirements)
-      .requirementInfos.map(
+      .requirements.map(
         (requirementInfo) =>
           `${requirementInfo.requirement} ${
             requirementInfo.passed

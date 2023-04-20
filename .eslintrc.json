@@ -25,17 +25,50 @@
         "prettier"
     ],
     "rules": {
-        "@typescript-eslint/no-misused-promises": ["error", { "ignoreVoid": true }],
+        "@typescript-eslint/no-misused-promises": [
+            "error",
+            {
+                "ignoreVoid": true
+            }
+        ],
         "@typescript-eslint/no-floating-promises": "error",
         "@typescript-eslint/no-unsafe-member-access": "error",
         "@typescript-eslint/no-unsafe-assignment": "error",
-        "no-console": [ "error", { "allow": [ "warn", "error" ] } ],
-        "semi": ["error", "always"],
-        "sort-imports": [ "error", { "ignoreCase": true, "allowSeparatedGroups": true } ]
+        "no-console": [
+            "error",
+            {
+                "allow": [
+                    "warn",
+                    "error"
+                ]
+            }
+        ],
+        "semi": [
+            "error",
+            "always"
+        ],
+        "sort-imports": [
+            "error",
+            {
+                "ignoreCase": true,
+                "allowSeparatedGroups": true
+            }
+        ]
     },
     "settings": {
         "jsdoc": {
             "mode": "typescript",
+            "structuredTags": {
+                "maximum": {
+                    "type": 0
+                },
+                "minimum": {
+                    "type": 0
+                },
+                "TJS-type": {
+                    "type": "integer"
+                }
+            },
             "tagNamePreference": {
                 "arg": "param",
                 "return": "returns"

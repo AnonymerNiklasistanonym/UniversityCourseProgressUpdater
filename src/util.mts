@@ -17,6 +17,18 @@ export const merge = <
     (outputArray, element) => outputArray.concat([converter(element)]),
     [] as OUTPUT_ELEMENT_TYPE[]
   );
+
+/**
+ * Predicate with type guard that can be inserted into a filter() call to remove
+ * undefined values from the array.
+ * @param value Any value.
+ * @returns True if not undefined.
+ */
+// eslint-disable-next-line @typescript-eslint/no-unnecessary-type-constraint
+export const notUndefined = <T extends unknown>(
+  value?: Readonly<T>
+): value is T => value !== undefined;
+
 /**
  * Help cleaning up a list with undefined values
  * @param argumentsList Arguments that are possibly undefined
@@ -32,6 +44,6 @@ export const cleanupUndefinedList = <
   argumentsList: ReadonlyArray<INPUT_ELEMENT_TYPE | undefined>,
   functionIfNotEmpty: (a: INPUT_ELEMENT_TYPE[]) => OUTPUT_ELEMENT_TYPE
 ): OUTPUT_ELEMENT_TYPE | undefined => {
-  const newList = argumentsList.filter((a) => a !== undefined);
+  const newList = argumentsList.filter<INPUT_ELEMENT_TYPE>(notUndefined);
   return newList.length === 0 ? undefined : functionIfNotEmpty(newList);
 };

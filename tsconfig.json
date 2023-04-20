@@ -6,7 +6,8 @@
         "moduleResolution": "nodenext",
         "target": "ES2022",
         "rootDir": "src",
-        "outDir": "dist"
+        "outDir": "dist",
+        "strict": true,
     },
     "include": [
         "src/**/*.mts"
