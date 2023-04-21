@@ -6,7 +6,7 @@
 
 | Points >= 50% | Passed Exercises >= 4 |
 | --- | --- |
-| 53.33%/50% :heavy_check_mark: | 4/4 :heavy_check_mark: |
+| 53.33/50% :heavy_check_mark: | 4/4 :heavy_check_mark: |
 
 | Exercise | Points | Notes |
 | --- | --- | --- |

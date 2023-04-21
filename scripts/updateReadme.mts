@@ -9,7 +9,7 @@ import {
   updateReadmeCommentContent,
 } from "../src/markdown.mjs";
 import { cliArgIds } from "../src/cli.mjs";
-import { renderNewProgressContent } from "../src/logic.mjs";
+import { renderNewProgressContent } from "../src/render.mjs";
 import { updateReadme } from "../src/files.mjs";
 // Type imports
 import type { CourseProgressData } from "../src/progressTypes.mjs";

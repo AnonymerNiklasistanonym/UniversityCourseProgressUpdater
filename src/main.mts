@@ -7,7 +7,7 @@ import {
 import { cutoffVersion, versionNumberConfig } from "./info.mjs";
 import { getCourseProgressData, updateReadme } from "./files.mjs";
 import { parseCliArgs } from "./cli.mjs";
-import { renderNewProgressContent } from "./logic.mjs";
+import { renderNewProgressContent } from "./render.mjs";
 
 // Main method (async wrapper)
 try {

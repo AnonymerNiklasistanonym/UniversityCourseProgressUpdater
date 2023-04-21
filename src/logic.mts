@@ -1,21 +1,8 @@
-// Package imports
-import path from "path";
 // Relative imports
-import { cleanupUndefinedList, merge, sum } from "./util.mjs";
-import {
-  convertBooleanToEmoji,
-  createMdTable,
-  renderDate,
-  renderPercentage,
-  TableRowValues,
-} from "./markdown.mjs";
+import { merge, sum } from "./util.mjs";
+import { renderPercentage } from "./markdown.mjs";
 // Type imports
-import type {
-  CourseExercise,
-  CourseExerciseTaskSubmission,
-  CourseProgressData,
-  CourseRequirements,
-} from "./progressTypes.mjs";
+import type { CourseExercise, CourseRequirements } from "./progressTypes.mjs";
 
 interface ExerciseSubmissionInfo {
   foundSubmission: boolean;
@@ -36,7 +23,7 @@ interface ExerciseInfo extends ExerciseSubmissionInfo {
  * @param exercise The exercise
  * @returns Information about single exercise submission
  */
-const getExerciseInfo = (
+export const getExerciseInfo = (
   exercise: Readonly<CourseExercise>
 ): ExerciseInfoNoSubmission | ExerciseInfo => {
   if (Array.isArray(exercise.submission)) {
@@ -90,7 +77,7 @@ interface PassedInfo extends PassedInfoBase {
  * @param courseRequirements Optional requirements to check if passed
  * @returns Was the exercise submission passed
  */
-const getExercisePassedInfo = (
+export const getExercisePassedInfo = (
   exerciseInfo: Readonly<ExerciseInfoNoSubmission | ExerciseInfo>,
   courseRequirements: Readonly<CourseRequirements> = {}
 ): PassedInfo | PassedInfoPending => {
@@ -152,7 +139,7 @@ const getExercisePassedInfo = (
       )}% (pass course)`,
       status: `${renderPercentage(
         exerciseInfo.achievedPoints / exerciseInfo.totalPoints
-      )}%/${renderPercentage(
+      )}/${renderPercentage(
         courseRequirements.minimumPointsPercentage.perSubmission
       )}%`,
       passed: passedMinimumPointsPercentage,
@@ -175,7 +162,7 @@ const getExercisePassedInfo = (
       )}% (pass exercise)`,
       status: `${renderPercentage(
         exerciseInfo.achievedPoints / exerciseInfo.totalPoints
-      )}%/${renderPercentage(
+      )}/${renderPercentage(
         courseRequirements.minimumPassedExercises.minimumPointsPercentageForPass
       )}%`,
       passed: passedMinimumPointsPercentage,
@@ -193,7 +180,7 @@ const getExercisePassedInfo = (
  * @param requirements Optional requirements to check if passed
  * @returns Was the exercise submission passed
  */
-const getCoursePassedInfo = (
+export const getCoursePassedInfo = (
   exercises: ReadonlyArray<CourseExercise>,
   requirements: Readonly<CourseRequirements> = {}
 ): PassedInfo => {
@@ -235,7 +222,7 @@ const getCoursePassedInfo = (
       )}%`,
       status: `${renderPercentage(
         achievedPoints / totalPoints
-      )}%/${renderPercentage(
+      )}/${renderPercentage(
         requirements.minimumPointsPercentage.allSubmissions
       )}%`,
       passed: passedMinimumPointsPercentage,
@@ -276,7 +263,7 @@ const getCoursePassedInfo = (
       )}%`,
       status: `${renderPercentage(
         passedExercises / totalExercises
-      )}%/${renderPercentage(requirements.minimumPassedExercises.percentage)}%`,
+      )}/${renderPercentage(requirements.minimumPassedExercises.percentage)}%`,
       passed: passedMinimumCountPercentage,
     });
     if (passed) {
@@ -284,144 +271,4 @@ const getCoursePassedInfo = (
     }
   }
   return { requirements: requirementInfos, passed };
-};
-
-const renderExerciseSubmissionTask = (
-  task: Readonly<CourseExerciseTaskSubmission>,
-  exerciseDir?: string
-): string => {
-  // Task name string part
-  let taskNamePart = "";
-  if (task.name) {
-    const taskDirectory = cleanupUndefinedList(
-      [exerciseDir, task.directory],
-      (a) => path.posix.join(...a)
-    );
-    taskNamePart = task.directory
-      ? ` (*[${task.name}](${taskDirectory})*)`
-      : ` (*${task.name}*)`;
-  }
-  // Points string part
-  let pointsStringPart = "";
-  if (task.achievedPoints !== undefined) {
-    const taskPointsStringRatio = `${task.achievedPoints}/${task.points}`;
-    if (task.feedbackFile) {
-      const feedbackPath = cleanupUndefinedList(
-        [exerciseDir, task.directory, task.feedbackFile],
-        (a) => path.posix.join(...a)
-      );
-      pointsStringPart = `[${taskPointsStringRatio}](${feedbackPath})`;
-    } else {
-      pointsStringPart = taskPointsStringRatio;
-    }
-  } else if (task.notSubmitted) {
-    pointsStringPart = `~${task.points}~`;
-  } else if (task.achievedPoints === undefined) {
-    // Pending
-    pointsStringPart = `?/${task.points}`;
-  } else {
-    pointsStringPart = `${task.points}`;
-  }
-  return `${pointsStringPart}${taskNamePart}`;
-};
-
-const renderExerciseRow = (
-  exercise: Readonly<CourseExercise>,
-  requirements: Readonly<CourseRequirements> = {}
-): TableRowValues => {
-  let exerciseNameString = `${exercise.name}`;
-  if (exercise.directory) {
-    exerciseNameString = `[${exerciseNameString}](${exercise.directory})`;
-  }
-  if (exercise.submissionDate) {
-    exerciseNameString += ` (${renderDate(new Date(exercise.submissionDate))})`;
-  }
-  const exerciseInfo = getExerciseInfo(exercise);
-  let exercisePointsString = "";
-  let notesString = "";
-  if (exerciseInfo.foundSubmission && exercise.submission) {
-    if (Array.isArray(exercise.submission)) {
-      exercisePointsString += exercise.submission
-        .map((a) => renderExerciseSubmissionTask(a, exercise.directory))
-        .join(" + ");
-      exercisePointsString += " = ";
-    }
-    let exercisePointsStringRatio = `${exerciseInfo.achievedPoints}/${exerciseInfo.totalPoints}`;
-    if (!exerciseInfo.submitted) {
-      exercisePointsStringRatio = `~${exerciseInfo.totalPoints}~`;
-    } else if (exerciseInfo.pending) {
-      exercisePointsStringRatio = `?/${exerciseInfo.totalPoints}`;
-    }
-    if (exercise.feedbackFile) {
-      const feedbackPath = cleanupUndefinedList(
-        [exercise.directory, exercise.feedbackFile],
-        (a) => path.posix.join(...a)
-      );
-      exercisePointsString += `[${exercisePointsStringRatio}](${feedbackPath})`;
-    } else {
-      exercisePointsString += exercisePointsStringRatio;
-    }
-    if (!exerciseInfo.pending && exerciseInfo.submitted) {
-      exercisePointsString += ` (${renderPercentage(
-        exerciseInfo.achievedPoints / exerciseInfo.totalPoints
-      )}%)`;
-    }
-    const exercisePassedInfo = getExercisePassedInfo(
-      exerciseInfo,
-      requirements
-    );
-    if ("requirements" in exercisePassedInfo) {
-      notesString += exercisePassedInfo.requirements
-        .map(
-          (requirementInfo) =>
-            `${requirementInfo.requirement} ${convertBooleanToEmoji(
-              requirementInfo.passed
-            )}`
-        )
-        .join(", ");
-    }
-  }
-  if (exercise.notes) {
-    if (notesString.length > 0) {
-      notesString += " - ";
-    }
-    notesString += exercise.notes;
-  }
-  return [exerciseNameString, exercisePointsString, notesString];
-};
-
-export const renderNewProgressContent = (
-  progressJsonData: Readonly<CourseProgressData>
-) => {
-  const newProgressContent: string[] = [];
-
-  // Render the summary header (progress info tables)
-  const coursePassInfo = getCoursePassedInfo(
-    progressJsonData.exercises,
-    progressJsonData.requirements
-  );
-  if (coursePassInfo.requirements.length > 0) {
-    newProgressContent.push(
-      createMdTable(
-        coursePassInfo.requirements.map((a) => a.requirement),
-        [
-          coursePassInfo.requirements.map(
-            (a) => `${a.status} ${convertBooleanToEmoji(a.passed)}`
-          ),
-        ]
-      )
-    );
-  }
-
-  // Render main table that lists the submissions
-  newProgressContent.push(
-    createMdTable(
-      ["Exercise", "Points", "Notes"],
-      merge(progressJsonData.exercises, (exercise) =>
-        renderExerciseRow(exercise, progressJsonData.requirements)
-      )
-    )
-  );
-
-  return newProgressContent.join("\n\n");
 };
