@@ -21,7 +21,7 @@
     "lint:circular": "madge --circular dist/main.mjs",
     "lint:exports": "ts-unused-exports tsconfig.scripts.json --showLineNumber",
     "lint:fix": "eslint --fix --ext .js,.mts src scripts test",
-    "start": "node updateProgress.js",
+    "start": "node .",
     "test": "mocha -- \"test/**/*.test.mts\"",
     "prebuild": "rimraf dist",
     "createBundle": "ts-node --project tsconfig.json --esm scripts/createBundle.mts",

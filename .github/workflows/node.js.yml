@@ -19,6 +19,9 @@ on:
     branches:
       - main
       - dev
+  # This attribute allows to manually trigger the workflow from the
+  # Actions tab from the GitHub website
+  workflow_dispatch:
 
 
 jobs:
