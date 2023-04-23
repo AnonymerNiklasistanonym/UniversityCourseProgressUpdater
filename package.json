@@ -24,6 +24,7 @@
     "start": "node .",
     "test": "mocha -- \"test/**/*.test.mts\"",
     "prebuild": "rimraf dist",
+    "docs": "ts-node --project tsconfig.json --esm scripts/createDocs.mts",
     "createBundle": "ts-node --project tsconfig.json --esm scripts/createBundle.mts",
     "createJsonSchema": "ts-node --project tsconfig.json --esm scripts/createJsonSchema.mts",
     "updateReadme": "ts-node --project tsconfig.json --esm scripts/updateReadme.mts"
@@ -46,6 +47,7 @@
     "ts-loader": "^9.4.2",
     "ts-node": "^10.9.1",
     "ts-unused-exports": "^9.0.4",
+    "typedoc": "^0.24.5",
     "typescript": "^5.0.4",
     "typescript-json-schema": "^0.56.0"
   }

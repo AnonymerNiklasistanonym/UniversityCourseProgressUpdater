@@ -41,7 +41,9 @@ export const cleanupUndefinedList = <
   OUTPUT_ELEMENT_TYPE extends unknown
 >(
   argumentsList: ReadonlyArray<INPUT_ELEMENT_TYPE | undefined>,
-  functionIfNotEmpty: (a: INPUT_ELEMENT_TYPE[]) => OUTPUT_ELEMENT_TYPE
+  functionIfNotEmpty: (
+    a: ReadonlyArray<INPUT_ELEMENT_TYPE>
+  ) => OUTPUT_ELEMENT_TYPE
 ): OUTPUT_ELEMENT_TYPE | undefined => {
   const newList = argumentsList.filter<INPUT_ELEMENT_TYPE>(notUndefined);
   return newList.length === 0 ? undefined : functionIfNotEmpty(newList);
